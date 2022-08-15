@@ -8,21 +8,18 @@ const Wrapper = styled.main`
   height: 100%;
 `;
 
-const GoogleMap = ({ children, ...props }) => {
-  console.log(props, children)
-  return (
-    <Wrapper>
-      <GoogleMapReact
-        bootstrapURLKeys={{
-          key:'AIzaSyDMvSLjIjkexqyJ1PxJb-AnnsoOY_nLfNM',
-        }}
-        {...props}
-      >
-        {children}
-      </GoogleMapReact>
-    </Wrapper>
-  );
-}
+const GoogleMap = ({ children, ...props }) => (
+  <Wrapper>
+    <GoogleMapReact
+      bootstrapURLKeys={{
+        key:'AIzaSyDMvSLjIjkexqyJ1PxJb-AnnsoOY_nLfNM',
+      }}
+      {...props}
+    >
+      {children}
+    </GoogleMapReact>
+  </Wrapper>
+);
 
 GoogleMap.propTypes = {
   children: PropTypes.oneOfType([

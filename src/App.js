@@ -1,28 +1,20 @@
-
+import React from 'react';
+import logo from './logo.svg';
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-import Main from './components/Main';
-
+import 'bootstrap/dist/css/bootstrap.css';
+import Main from './examples/Main'
 
 function App() {
-
-  /* AIzaSyDMvSLjIjkexqyJ1PxJb-AnnsoOY_nLfNM */
   return (
     <div className="App">
-      <header className="App-header">
-
-      <div className='container'>
-        <div className="row">
-          <div className="col-3">
-            <Main />
-          </div>
-          <div className="col-9">
-          </div>
+      <div className='row g-0 appContainer'>
+        <div className='col-4'>   
+        </div>
+        <div className='col-8'>
+        <Main/>
+          
         </div>
       </div>
-
-      </header>
     </div>
   );
 }

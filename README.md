@@ -1,70 +1,54 @@
-# Getting Started with Create React App
+# Examples for [google-map-react library](https://github.com/google-map-react/google-map-react) &middot; [![Build Status](https://travis-ci.org/google-map-react/google-map-react-examples.svg?branch=master)](https://travis-ci.org/google-map-react/google-map-react-examples)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-## Available Scripts
+## Stack
 
-In the project directory, you can run:
+- [React](https://facebook.github.io/react) rendering
+- [React-router](https://reacttraining.com/react-router/) for routing
+- [Styled components](https://www.styled-components.com/) for styling our components
 
-### `npm start`
+## Examples
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [Main](https://google-map-react.github.io/google-map-react-examples/?path=/story/main-examples--base) ([source](https://github.com/google-map-react/google-map-react-examples/blob/master/src/examples/Main.js))
+- [Heatmap](https://google-map-react.github.io/google-map-react-examples/?path=/story/heatmap-examples--base) ([source](https://github.com/google-map-react/google-map-react-examples/blob/master/src/examples/Heatmap.js))
+- [Searchbox](https://google-map-react.github.io/google-map-react-examples/?path=/story/searchbox-examples--base) ([source](https://github.com/google-map-react/google-map-react-examples/blob/master/src/examples/Searchbox.js))
+- [Autocomplete](https://google-map-react.github.io/google-map-react-examples/?path=/story/autocomplete-examples--base) ([source](https://github.com/google-map-react/google-map-react-examples/blob/master/src/examples/Searchbox.js))
+- [Marker and Info Window using React Component](https://google-map-react.github.io/google-map-react-examples/?path=/story/markerinfo-examples--custom-component) ([source](https://github.com/google-map-react/google-map-react-examples/blob/master/src/examples/MarkerInfoWindow.js))
+- [Marker and Info Window using Google Maps API Object](https://google-map-react.github.io/google-map-react-examples/?path=/story/markerinfo-examples--default-marker) ([source](https://github.com/google-map-react/google-map-react-examples/blob/master/src/examples/MarkerInfoWindowGmapsObj.js))
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Getting started
 
-### `npm test`
+### Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Although I prefer yarn, you can use either yarn or npm:
 
-### `npm run build`
+- `npm install` or simply `yarn`
 
-Builds the app for production to the `build` folder.\
+### Run development
+
+- `npm start` or `yarn start`
+
+Runs the app in development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will automatically reload if you make changes to the code.<br>
+You will see the build errors and lint warnings in the console.
+
+### Run production build
+
+- `npm run build` or `yarn build`
+
+Builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The build is minified and the filenames include the hashes.<br>
+By default, it also [includes a service worker](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#making-a-progressive-web-app) so that your app loads from local cache on future visits.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Your app is ready to be deployed.
 
-### `npm run eject`
+### Deploy to GH pages
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- `npm run deploy` or `yarn deploy`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This will push a branch named `gh-pages` to the repository, which will be used by GH to render the latest version of our site.
