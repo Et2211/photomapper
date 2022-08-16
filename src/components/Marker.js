@@ -36,16 +36,25 @@ return(
             {...props}
             style={{
               position: 'absolute',
-              backgroundColor: '#fff',
-              padding: '2px 10px',
+              backgroundColor: '#f2f2f2',
               color: '#000',
               borderRadius: 3,
               border: '1px solid #000',
               ...props.style,
+              width: '400px'
             }}
           >
-            {title}
-            <img src={process.env.PUBLIC_URL + "/images/" + photo} height="200px" width={"200px"}></img>
+            <div className='row image-popUp'>
+              <div className='col-4'>
+                <h3 className='text-uppercase text-center'>{title}</h3>
+              </div>
+
+              <div className='col-8'>
+                <div className='image-container'>
+                  <img src={process.env.PUBLIC_URL + "/images/" + photo} className='float-end h-100 w-100'></img>
+                </div>
+              </div>
+            </div>
             
           </div>
         )}
