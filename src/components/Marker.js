@@ -45,7 +45,7 @@ return(
             }}
           >
             {title}
-            <img src={"images/IMG_20220725_203539.jpg"} height="200px" width={"200px"}></img>
+            <img src={process.env.PUBLIC_URL + "/images/" + photo} height="200px" width={"200px"}></img>
             
           </div>
         )}
