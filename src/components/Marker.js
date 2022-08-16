@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useState, useRef} from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Button from 'react-bootstrap/Button';
+import Overlay from 'react-bootstrap/Overlay';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -19,13 +21,44 @@ const Wrapper = styled.div`
   }
 `;
 
-const Marker = ({ text, onClick }) => (
+const Marker = ({ text, onClick, photo, title }) => {
+  const [show, setShow] = useState(false);
+  const target = useRef(null);
+  console.log(process.env.PUBLIC_URL + "/images/IMG_20220725_203539.jpg")
+
+return(
+
+  
+  <>
+      <Overlay target={target.current} show={show} placement="right">
+        {({ placement, arrowProps, show: _show, popper, ...props }) => (
+          <div
+            {...props}
+            style={{
+              position: 'absolute',
+              backgroundColor: '#fff',
+              padding: '2px 10px',
+              color: '#000',
+              borderRadius: 3,
+              border: '1px solid #000',
+              ...props.style,
+            }}
+          >
+            {title}
+            <img src={"images/IMG_20220725_203539.jpg"} height="200px" width={"200px"}></img>
+            
+          </div>
+        )}
+      </Overlay>
+
+
   <Wrapper
     alt={text}
-    onClick={onClick}
-  />
+    variant="danger" ref={target} onClick={() => setShow(!show)}
+    />
+</>
 );
-
+}
 Marker.defaultProps = {
   onClick: null,
 };

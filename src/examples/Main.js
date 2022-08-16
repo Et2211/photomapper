@@ -71,15 +71,20 @@ class Main extends Component {
             yesIWantToUseGoogleMapApiInternals
             onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps, places)}
           >
-            {places.map((place) => (
-              <Marker
+            {places.map((place) => {
+              console.log(place)
+              return (
+                <Marker
                 key={place.id}
                 text={place.name}
                 lat={place.geometry.location.lat}
                 lng={place.geometry.location.lng}
-              />
-            ))}
-          </GoogleMap>
+                photo={place.photo_URL}
+                title={place.title}
+                />
+              
+                )})}
+                </GoogleMap>
         )}
       </div>
     );

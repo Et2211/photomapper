@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://itsmichaeldiego.github.io/google-map-react-examples/",
   "dependencies": {
+    "@popperjs/core": "^2.11.6",
     "@testing-library/jest-dom": "^5.11.0",
     "@testing-library/react": "^10.4.5",
     "@testing-library/user-event": "^12.0.11",
@@ -12,6 +13,7 @@
     "lodash.isempty": "^4.4.0",
     "prop-types": "^15.6.1",
     "react": "^16.13.1",
+    "react-bootstrap": "^2.5.0",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
     "styled-components": "^5.1.1"
