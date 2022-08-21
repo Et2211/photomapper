@@ -24,7 +24,6 @@ const Wrapper = styled.div`
 const Marker = ({ text, onClick, photo, title }) => {
   const [show, setShow] = useState(false);
   const target = useRef(null);
-  console.log(process.env.PUBLIC_URL + "/images/IMG_20220725_203539.jpg")
 
 return(
 

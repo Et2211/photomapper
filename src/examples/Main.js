@@ -54,7 +54,6 @@ class Main extends Component {
   }
 
   componentDidMount() {
-    console.log(data.default.results)
     this.setState({
       places: data.default.results
     })
@@ -72,7 +71,6 @@ class Main extends Component {
             onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps, places)}
           >
             {places.map((place) => {
-              console.log(place)
               return (
                 <Marker
                 key={place.id}
