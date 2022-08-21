@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Button from 'react-bootstrap/Button';
 import Overlay from 'react-bootstrap/Overlay';
 
+
 const Wrapper = styled.div`
   position: absolute;
   top: 50%;
@@ -61,7 +62,6 @@ return(
 
 
   <Wrapper
-    alt={text}
     variant="danger" ref={target} onClick={() => setShow(!show)}
     />
 </>
@@ -73,7 +73,6 @@ Marker.defaultProps = {
 
 Marker.propTypes = {
   onClick: PropTypes.func,
-  text: PropTypes.string.isRequired,
 };
 
 export default Marker;

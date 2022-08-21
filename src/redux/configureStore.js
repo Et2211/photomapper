@@ -1,5 +1,5 @@
 
-import { createStore, applyMiddleware, compose } from 'redux'
+import { legacy_createStore as createStore, applyMiddleware, compose } from 'redux'
 import rootReducer from './reducers'
 import reduximmutablestateinvariant from 'redux-immutable-state-invariant'
 

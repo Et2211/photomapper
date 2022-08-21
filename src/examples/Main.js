@@ -12,14 +12,15 @@ import GoogleMap from '../components/GoogleMap';
 // consts
 import LOS_ANGELES_CENTER from '../const/la_center';
 
+
 // Return map bounds based on list of places
 const getMapBounds = (map, maps, places) => {
   const bounds = new maps.LatLngBounds();
 
   places.forEach((place) => {
     bounds.extend(new maps.LatLng(
-      place.geometry.location.lat,
-      place.geometry.location.lng,
+      place.Lat,
+      place.Lng,
     ));
   });
   return bounds;
@@ -60,7 +61,7 @@ class Main extends Component {
   }
 
   render() {
-    const { places } = this.state;
+    const { places } = this.props;
     return (
       <div className='mapContainer'>
         {!isEmpty(places) && (
@@ -74,11 +75,11 @@ class Main extends Component {
               return (
                 <Marker
                 key={place.id}
-                text={place.name}
-                lat={place.geometry.location.lat}
-                lng={place.geometry.location.lng}
-                photo={place.photo_URL}
-                title={place.title}
+                text={place.Name}
+                lat={place.Lat}
+                lng={place.Lng}
+                photo={place.URL}
+                title={place.Name}
                 />
               
                 )})}

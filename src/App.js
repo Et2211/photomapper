@@ -6,11 +6,12 @@ import Main from './examples/Main'
 import {fetchData} from './AwsFunctions';
 import {loadPlaces} from './redux/actions/placeActions'
 
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 
 function App() {
-  const [places, setPlaces] = useState([])
   const dispatch = useDispatch()
+  const places = useSelector(state => state.places.places.Items)
+
 
   const refreshPlaces = (data) => {
     dispatch(loadPlaces(data))
@@ -18,9 +19,7 @@ function App() {
 
   useEffect(()=>{
     fetchData('Photos', refreshPlaces )
-  })
-
-
+  }, [])
 
   return (
     <div className="App">
@@ -28,8 +27,7 @@ function App() {
         <div className='col-4'>   
         </div>
         <div className='col-8'>
-        <Main places={places.items}/>
-          
+          <Main places = {places}/>
         </div>
       </div>
     </div>

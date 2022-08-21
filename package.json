@@ -11,6 +11,7 @@
     "bootstrap": "^5.2.0",
     "google-map-react": "^2.0.1",
     "lodash.isempty": "^4.4.0",
+    "node-base64-image": "^2.0.4",
     "prop-types": "^15.6.1",
     "react": "^16.13.1",
     "react-bootstrap": "^2.5.0",

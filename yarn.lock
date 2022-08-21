@@ -3532,6 +3532,13 @@
     "follow-redirects" "1.5.10"
     "is-buffer" "^2.0.2"
 
+"axios@0.25.0":
+  "integrity" "sha512-cD8FOb0tRH3uuEe6+evtAbgJtfxr7ly3fQjYcMcuPlgkwVS9xboaVIpcDV+cYQe+yGykgwZCs1pzjntcGa6l5g=="
+  "resolved" "https://registry.npmjs.org/axios/-/axios-0.25.0.tgz"
+  "version" "0.25.0"
+  dependencies:
+    "follow-redirects" "^1.14.7"
+
 "axobject-query@^2.0.2", "axobject-query@^2.1.2":
   "integrity" "sha512-Td525n+iPOOyUQIeBfcASuG6uJsDOITl7Mds5gFyerkWiX7qhUTdYUBlSgNMyVqtSJqwpt1kXGLdUt6SykLMRA=="
   "resolved" "https://registry.npmjs.org/axobject-query/-/axobject-query-2.2.0.tgz"
@@ -7152,6 +7159,11 @@
   dependencies:
     "debug" "=3.1.0"
 
+"follow-redirects@^1.14.7":
+  "integrity" "sha512-yLAMQs+k0b2m7cVxpS1VKJVvoz7SS9Td1zss3XRwXj+ZDH00RJgnuLx7E44wx02kQLrdM3aOOy+FpzS7+8OizA=="
+  "resolved" "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.1.tgz"
+  "version" "1.15.1"
+
 "for-each@^0.3.3":
   "integrity" "sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw=="
   "resolved" "https://registry.npmjs.org/for-each/-/for-each-0.3.3.tgz"
@@ -10744,6 +10756,13 @@
   "integrity" "sha1-yqoQdsxY4DZCZ6CQPj6t+sFYOWs= sha512-+0eqgEdgPiixrNysGDTPo3T2qyEHGVgs4ONlc5tTfcluvC/Rgq1x2ELdANUMwhR2CYLwaQnMS32O/h7adasnFQ=="
   "resolved" "https://registry.npmjs.org/node-ask/-/node-ask-1.0.1.tgz"
   "version" "1.0.1"
+
+"node-base64-image@^2.0.4":
+  "integrity" "sha512-brh2nblaVT1/cIRH5gqDx6VpdmjCh2P1f/XpE6j+IJpXWfC7NkkclEaMcZSQ/KvZrXLML0z9a5qN0mRQ4LGMJA=="
+  "resolved" "https://registry.npmjs.org/node-base64-image/-/node-base64-image-2.0.4.tgz"
+  "version" "2.0.4"
+  dependencies:
+    "axios" "0.25.0"
 
 "node-dir@^0.1.10":
   "integrity" "sha1-X1Zl2TNRM1yqvvjxxVRRbPXx5OU= sha512-tmPX422rYgofd4epzrNoOXiE8XFZYOcCq1vD7MAXCDO+O+zndlA2ztdKKMa+EeuBG5tHETpr4ml4RGgpqDCCAg=="
