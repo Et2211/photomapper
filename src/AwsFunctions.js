@@ -1,4 +1,5 @@
 import * as AWS from 'aws-sdk'
+import {loadPlaces} from './redux/actions/placeActions'
 const configuration = {
     region: 'eu-west-2',
     secretAccessKey: 'qrAUU6QJCfdUds7HycKkVP4My3znwhdM53GU9rgp',
@@ -17,7 +18,6 @@ export const fetchData = async (tableName, callback) => {
 
     await docClient.scan(params, function (err, data) {
         if (!err) {
-            
             callback(data)
         } else {
             console.log(err)

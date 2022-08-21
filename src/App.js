@@ -4,19 +4,23 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import Main from './examples/Main'
 import {fetchData} from './AwsFunctions';
+import {loadPlaces} from './redux/actions/placeActions'
+
+import {useDispatch} from 'react-redux'
 
 function App() {
   const [places, setPlaces] = useState([])
+  const dispatch = useDispatch()
 
-  const refreshDB = () => {
-    fetchData('Photos', setPlaces)
+  const refreshPlaces = (data) => {
+    dispatch(loadPlaces(data))
   }
 
   useEffect(()=>{
-    console.log(places)
-    refreshDB()
-    console.log(places)
-  },[])
+    fetchData('Photos', refreshPlaces )
+  })
+
+
 
   return (
     <div className="App">
@@ -24,7 +28,7 @@ function App() {
         <div className='col-4'>   
         </div>
         <div className='col-8'>
-        <Main places={places}/>
+        <Main places={places.items}/>
           
         </div>
       </div>

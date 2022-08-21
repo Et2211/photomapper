@@ -2,7 +2,6 @@
   "name": "google-map-react-examples",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://itsmichaeldiego.github.io/google-map-react-examples/",
   "dependencies": {
     "@popperjs/core": "^2.11.6",
     "@testing-library/jest-dom": "^5.11.0",
@@ -16,7 +15,10 @@
     "react": "^16.13.1",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^16.13.1",
+    "react-redux": "^8.0.2",
     "react-scripts": "3.4.1",
+    "redux": "^4.2.0",
+    "redux-immutable-state-invariant": "^2.1.0",
     "styled-components": "^5.1.1"
   },
   "scripts": {
