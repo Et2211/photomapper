@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -6,12 +6,17 @@ import Main from './examples/Main'
 import {fetchData} from './AwsFunctions';
 
 function App() {
+  const [places, setPlaces] = useState([])
 
-  useEffect(() => {
-    const data = fetchData('Photos')
-    console.log(data)
-  });
+  const refreshDB = () => {
+    fetchData('Photos', setPlaces)
+  }
 
+  useEffect(()=>{
+    console.log(places)
+    refreshDB()
+    console.log(places)
+  },[])
 
   return (
     <div className="App">
@@ -19,7 +24,7 @@ function App() {
         <div className='col-4'>   
         </div>
         <div className='col-8'>
-        <Main/>
+        <Main places={places}/>
           
         </div>
       </div>

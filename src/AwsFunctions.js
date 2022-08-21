@@ -9,16 +9,16 @@ AWS.config.update(configuration)
 
 const docClient = new AWS.DynamoDB.DocumentClient()
 
-export const fetchData = (tableName) => {
+export const fetchData = async (tableName, callback) => {
 
     var params = {
         TableName: tableName
     }
 
-    docClient.scan(params, function (err, data) {
+    await docClient.scan(params, function (err, data) {
         if (!err) {
-            console.log(data)
-            return data
+            
+            callback(data)
         } else {
             console.log(err)
         }
