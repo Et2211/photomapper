@@ -1,9 +1,12 @@
 import * as AWS from 'aws-sdk'
 import {loadPlaces} from './redux/actions/placeActions'
+import {keys} from './config'
+
+
 const configuration = {
-    region: 'eu-west-2',
-    secretAccessKey: 'qrAUU6QJCfdUds7HycKkVP4My3znwhdM53GU9rgp',
-    accessKeyId: 'AKIA3NR22ECEJVV2CTLM'
+    region: keys.region,
+    secretAccessKey: keys.secretAccessKey,
+    accessKeyId: keys.accessKeyId
 }
 
 AWS.config.update(configuration)
@@ -23,4 +26,30 @@ export const fetchData = async (tableName, callback) => {
             console.log(err)
         }
     })
+}
+
+const s3 = new AWS.S3({
+    accessKeyId: keys.accessKeyId,
+    secretAccessKey: keys.secretAccessKey,
+});
+
+export const uploadToS3 = (fileContent, name, type) => {
+    //const fileContent = fs.readFileSync(fileName);
+
+    // Setting up S3 upload parameters
+    const params = {
+        Bucket: 'photo-mapper',
+        Key: 'Photos/' + name, // File name you want to save as in S3
+        Body: fileContent,
+        type: type,
+        ContentType: type,
+    };
+
+    // Uploading files to the bucket
+    s3.upload(params, function(err, data) {
+        if (err) {
+            throw err;
+        }
+        console.log(`File uploaded successfully. ${data.Location}`);
+    });
 }
