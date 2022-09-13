@@ -50,7 +50,7 @@ const s3 = new AWS.S3({
     secretAccessKey: keys.secretAccessKey,
 });
 
-export const uploadToS3 = (fileContent, name, type, photoName, lat, lng, refreshPlaces) => {
+export const uploadToS3 = (fileContent, name, type, username, photoName, lat, lng, refreshPlaces) => {
     //const fileContent = fs.readFileSync(fileName);
 
     // Setting up S3 upload parameters
@@ -71,7 +71,8 @@ export const uploadToS3 = (fileContent, name, type, photoName, lat, lng, refresh
 
         const dynamoData = {
             PhotoID: photoName + Date.now(),
-            name: photoName, 
+            username: username,
+            photoName: photoName, 
             lat: lat, 
             lng: lng, 
             url: data.Location

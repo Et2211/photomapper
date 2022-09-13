@@ -79,11 +79,12 @@ class Main extends Component {
                 lat={place.lat}
                 lng={place.lng}
                 photo={place.url}
-                title={place.name}
+                photoName={place.photoName}
+                username={place.username}
                 />
               
                 )})}
-                </GoogleMap>
+              </GoogleMap>
         )}
       </div>
     );
