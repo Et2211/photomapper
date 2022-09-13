@@ -3493,7 +3493,7 @@
   "resolved" "https://registry.npmjs.org/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz"
   "version" "1.0.5"
 
-"aws-sdk@^2.1199.0":
+"aws-sdk@^2.0.19", "aws-sdk@^2.1199.0":
   "integrity" "sha512-N51EMTCMsiVAJDSKCDTMUheLBlPZ7/c/qyCMGirdoF64/JU+gvZ/u+UqkYPhK7XE80b0GqTj676rtp9OkU1kyg=="
   "resolved" "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.1199.0.tgz"
   "version" "2.1199.0"
@@ -6061,6 +6061,13 @@
     "inherits" "^2.0.1"
     "readable-stream" "^2.0.0"
     "stream-shift" "^1.0.0"
+
+"dynamodb-doc@^1.0.0":
+  "integrity" "sha512-UpPhRP6Rua1dV7VacehRS6TuYjON/QjWxx1/qrj3VuNeI2sHw8XDpwiRfE0iSIXrF2nZA2uLe7iIL8AAsH6K7Q=="
+  "resolved" "https://registry.npmjs.org/dynamodb-doc/-/dynamodb-doc-1.0.0.tgz"
+  "version" "1.0.0"
+  dependencies:
+    "aws-sdk" "^2.0.19"
 
 "ecc-jsbn@~0.1.1":
   "integrity" "sha1-OoOpBOVDUyh4dMVkt1SThoSamMk= sha512-eh9O+hwRHNbG4BLTjEl3nw044CkGm5X6LoaCf7LPp7UU8Qrt47JYNi6nPX8xjW97TKGKm1ouctg0QSpZe9qrnw=="

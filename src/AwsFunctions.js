@@ -28,12 +28,29 @@ export const fetchData = async (tableName, callback) => {
     })
 }
 
+export const putData = (tableName , data, refreshPlaces) => {
+    var params = {
+        TableName: tableName,
+        Item: data,
+    }
+    console.log(params)
+    
+    docClient.put(params, function (err, data) {
+        if (err) {
+            console.log('Error', err)
+        } else {
+            console.log('Success', data)
+            fetchData('Photos', refreshPlaces)
+        }
+    })
+}
+
 const s3 = new AWS.S3({
     accessKeyId: keys.accessKeyId,
     secretAccessKey: keys.secretAccessKey,
 });
 
-export const uploadToS3 = (fileContent, name, type) => {
+export const uploadToS3 = (fileContent, name, type, photoName, lat, lng, refreshPlaces) => {
     //const fileContent = fs.readFileSync(fileName);
 
     // Setting up S3 upload parameters
@@ -46,10 +63,19 @@ export const uploadToS3 = (fileContent, name, type) => {
     };
 
     // Uploading files to the bucket
-    s3.upload(params, function(err, data) {
+     s3.upload(params, function(err, data) {
         if (err) {
             throw err;
         }
         console.log(`File uploaded successfully. ${data.Location}`);
+
+        const dynamoData = {
+            PhotoID: photoName + Date.now(),
+            name: photoName, 
+            lat: lat, 
+            lng: lng, 
+            url: data.Location
+        }
+        putData('Photos', dynamoData, refreshPlaces)
     });
 }

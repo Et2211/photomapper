@@ -19,8 +19,8 @@ const getMapBounds = (map, maps, places) => {
 
   places.forEach((place) => {
     bounds.extend(new maps.LatLng(
-      place.Lat,
-      place.Lng,
+      place.lat,
+      place.lng,
     ));
   });
   return bounds;
@@ -75,11 +75,11 @@ class Main extends Component {
               return (
                 <Marker
                 key={place.id}
-                text={place.Name}
-                lat={place.Lat}
-                lng={place.Lng}
-                photo={place.URL}
-                title={place.Name}
+                text={place.name}
+                lat={place.lat}
+                lng={place.lng}
+                photo={place.url}
+                title={place.name}
                 />
               
                 )})}

@@ -1,8 +1,9 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Button from 'react-bootstrap/Button';
 import Overlay from 'react-bootstrap/Overlay';
+import Popover from 'react-bootstrap/Popover';
 
 
 const Wrapper = styled.div`
@@ -16,21 +17,47 @@ const Wrapper = styled.div`
   border-radius: 100%;
   user-select: none;
   transform: translate(-50%, -50%);
-  cursor: ${(props) => (props.onClick ? 'pointer' : 'default')};
+  cursor: pointer;
   &:hover {
     z-index: 1;
   }
 `;
+function useOutsideAlerter(ref, setShow) {
+  useEffect(() => {
+    /**
+     * Alert if clicked on outside of element
+     */
+    function handleClickOutside(event) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setShow(false)
+      }
+    }
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [ref]);
+}
 
 const Marker = ({ text, onClick, photo, title }) => {
   const [show, setShow] = useState(false);
   const target = useRef(null);
+  useOutsideAlerter(target, setShow);
+
+  useEffect(()=>{
+    document.addEventListener('click', setShow(false))
+  }, [])
 
 return(
 
   
   <>
-      <Overlay target={target.current} show={show} placement="right">
+  <Wrapper
+    variant="danger" ref={target} onClick={() => setShow(!show)}
+    />
+      <Overlay target={target.current} show={show} placement="right" rootClose={true} rootCloseEvent={'click'}>
         {({ placement, arrowProps, show: _show, popper, ...props }) => (
           <div
             {...props}
@@ -51,7 +78,7 @@ return(
 
               <div className='col-8'>
                 <div className='image-container'>
-                  <img src={process.env.PUBLIC_URL + "/images/" + photo} className='float-end h-100 w-100'></img>
+                  <img src={photo} className='float-end h-100 w-100'></img>
                 </div>
               </div>
             </div>
@@ -61,9 +88,6 @@ return(
       </Overlay>
 
 
-  <Wrapper
-    variant="danger" ref={target} onClick={() => setShow(!show)}
-    />
 </>
 );
 }
