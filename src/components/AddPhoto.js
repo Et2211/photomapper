@@ -63,7 +63,7 @@ function AddPhotos({refreshPlaces}) {
 			      </div>
 			      <div className="modal-footer">
 			        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-			        <button type="button" className="btn btn-primary" onClick={()=>savetoAWS()}>Save changes</button>
+			        <button type="button" className="btn btn-primary" onClick={()=>savetoAWS()} data-bs-dismiss="modal">Save changes</button>
 			      </div>
 			    </div>
 			  </div>
