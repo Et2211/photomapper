@@ -61,19 +61,22 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 }
 
 .header{
-  height: 3vh;
+  height: 4vh;
 
 }
 
 .photo-feed {
   overflow-y: scroll;
   height: 100vh;
-  padding-bottom: 4em;
+  padding-bottom: 6em;
 }
 
 .photo-in-feed {
   margin: 0.5em;
-  padding: 1em;
   border: 3px solid blue;
-  border-radius: 50px;
+  border-radius: 25px;
+}
+
+.photo-in-feed img{
+  border-radius: 0px 0px 20px 20px;
 }
