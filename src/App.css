@@ -1,4 +1,5 @@
 
+html, body {margin: 0; height: 100%; overflow: hidden}
 .App {
   text-align: center;
 
@@ -59,11 +60,19 @@
   width: 100%;
 }
 
+.header{
+  height: 3vh;
+
+}
+
 .photo-feed {
   overflow-y: scroll;
+  height: 100vh;
+  padding-bottom: 4em;
 }
 
 .photo-in-feed {
+  margin: 0.5em;
   padding: 1em;
   border: 3px solid blue;
   border-radius: 50px;
