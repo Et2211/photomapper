@@ -63,10 +63,10 @@ function App() {
       <div className='row g-0 appContainer d-flex d-md-none'>
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
-          <li class="nav-item" role="presentation">
+          <li class="nav-item" role="presentation"data-bs-target="#home-tab-pane" type="button" aria-controls="home-tab-pane" aria-selected="true">
             <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Photo Feed</button>
           </li>
-          <li class="nav-item" role="presentation">
+          <li class="nav-item" role="presentation" data-bs-target="#profile-tab-pane" type="button" aria-controls="profile-tab-pane" aria-selected="false">
             <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">World Map</button>
           </li>
         </ul>
