@@ -55,6 +55,14 @@ html, body {margin: 0; height: 100%; overflow: hidden}
   width: 100%;
 }
 
+@media only screen and (max-width: 762px) {
+  .mapContainer{
+    height: 96vh;
+  }
+  
+
+}
+
 .modal-mapContainer{
   height: 600px;
   width: 100%;
@@ -79,4 +87,16 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 
 .photo-in-feed img{
   border-radius: 0px 0px 20px 20px;
+}
+
+.nav-tabs{
+  height: 4vh;
+}
+
+.nav-tabs li{
+  width: 50%;
+  text-align: center;
+}
+.nav-tabs li button{
+  width: 100%;
 }

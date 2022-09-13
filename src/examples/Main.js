@@ -70,7 +70,10 @@ class Main extends Component {
             defaultCenter={LOS_ANGELES_CENTER}
             yesIWantToUseGoogleMapApiInternals
             onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps, places)}
+
           >
+            
+           
             {places.map((place) => {
               return (
                 <Marker
