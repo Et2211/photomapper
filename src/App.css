@@ -57,7 +57,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 
 @media only screen and (max-width: 762px) {
   .mapContainer{
-    height: 96vh;
+    height: 90vh;
   }
   
 
@@ -81,7 +81,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 
 .photo-in-feed {
   margin: 0.5em;
-  border: 3px solid blue;
+  border: 3px solid green;
   border-radius: 25px;
 }
 
@@ -89,14 +89,13 @@ html, body {margin: 0; height: 100%; overflow: hidden}
   border-radius: 0px 0px 20px 20px;
 }
 
-.nav-tabs{
-  height: 4vh;
+.mobile-nav-link {
+  color: green !important;
+  height: 2em;
+
 }
 
-.nav-tabs li{
-  width: 50%;
-  text-align: center;
-}
-.nav-tabs li button{
-  width: 100%;
+.mobile-nav-link.active {
+  color: black !important;
+  border-bottom: 2px solid green;
 }

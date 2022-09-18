@@ -43,8 +43,8 @@ function AddPhotos({refreshPlaces}) {
 			  Add new photo
 			</button>
 
-			<div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			  <div className="modal-dialog modal-lg">
+			<div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div className="modal-dialog modal-lg modal-dialog-centered modal-fullscreen-lg-down">
 			    <div className="modal-content">
 			      <div className="modal-header">
 			        <h5 className="modal-title" id="exampleModalLabel">Add to the map!</h5>

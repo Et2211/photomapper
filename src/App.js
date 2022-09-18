@@ -8,6 +8,7 @@ import AddPhotos from './components/AddPhoto';
 import PhotoFeed from './components/PhotoFeed';
 import {fetchData} from './AwsFunctions';
 import {loadPlaces} from './redux/actions/placeActions'
+import useWindowDimensions from './hooks/useWindowDimensions';
 
 
 import fs from 'fs'
@@ -16,6 +17,8 @@ import {useDispatch, useSelector} from 'react-redux'
 
 function App() {
   const dispatch = useDispatch()
+  const [mobileNav, setMobileNav] = useState(0)
+  const { height, width } = useWindowDimensions();
   const places = useSelector(state => state.places.places.Items)
 
 
@@ -25,12 +28,12 @@ function App() {
 
   useEffect(()=>{
     fetchData('Photos', refreshPlaces)
-
+    console.log(width)
   }, [])
 
   return (
     <div className="App">
-      <div className='row g-0 appContainer d-none d-md-flex'>
+      {width > 768 ? <div className='row g-0 appContainer'>
         <div className='col-3 col-lg-3 h-100'>
           <div className='header'>
 
@@ -60,20 +63,31 @@ function App() {
           <Main places = {places}/>
         </div>
       </div>
-      <div className='row g-0 appContainer d-flex d-md-none'>
 
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-          <li class="nav-item" role="presentation"data-bs-target="#home-tab-pane" type="button" aria-controls="home-tab-pane" aria-selected="true">
-            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Photo Feed</button>
-          </li>
-          <li class="nav-item" role="presentation" data-bs-target="#profile-tab-pane" type="button" aria-controls="profile-tab-pane" aria-selected="false">
-            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">World Map</button>
-          </li>
-        </ul>
-        <div class="tab-content" id="myTabContent">
-          <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+      :
+
+      <div className='row g-0 appContainer'>
+
+
+        <div>
+          <div className='row'>
+					  <div className='col-6 align-self-center'>
+              <div className={mobileNav == 0 ? "mobile-nav-link active" : "mobile-nav-link"} onClick={()=>setMobileNav(0)}>
+                <a>Photo Feed</a>
+              </div>
+            </div>
+            <div className='col-6 align-self-center'>
+              <div className={mobileNav == 1 ? "mobile-nav-link active" : "mobile-nav-link"} onClick={()=>setMobileNav(1)}>
+                <a>World map</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+    
+          {mobileNav == 0 ? <div>
             <div className='header'>
-
               <div className='row my-2'>
 					    	<div className='col-6'>
                   <h2 className='m-0'>Photo Mapper</h2>
@@ -96,18 +110,14 @@ function App() {
               </div>
             </div>
           </div>
-
-          <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+          :
+          <div>
             <Main places = {places}/>
-
           </div>
+          }
         </div>
-
-
-
+}
       </div>
-
-    </div>
   );
 }
 
