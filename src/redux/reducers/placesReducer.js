@@ -9,6 +9,12 @@ export default function placesReducers(state = initialState, action) {
         places: action.payload
       }
 
+    case actionTypes.CLEAR_PLACES:
+      return {
+        ...state, 
+        places: {}
+      }
+
     default:
       return state
   }

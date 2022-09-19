@@ -7,13 +7,14 @@ import Main from './examples/Main'
 import AddPhotos from './components/AddPhoto';
 import PhotoFeed from './components/PhotoFeed';
 import {fetchData} from './AwsFunctions';
-import {loadPlaces} from './redux/actions/placeActions'
+import {loadPlaces, clearPlaces} from './redux/actions/placeActions'
 import useWindowDimensions from './hooks/useWindowDimensions';
 
 
 import fs from 'fs'
 
 import {useDispatch, useSelector} from 'react-redux'
+import Header from './components/Header';
 
 function App() {
   const dispatch = useDispatch()
@@ -34,18 +35,8 @@ function App() {
   return (
     <div className="App">
       {width > 768 ? <div className='row g-0 appContainer'>
-        <div className='col-3 col-lg-3 h-100'>
-          <div className='header'>
-
-            <div className='row mt-2'>
-					  	<div className='col-6'>
-                <h2 className='m-0'>Photo Mapper</h2>
-              </div>
-					  	<div className='col-6'>
-                <AddPhotos refreshPlaces={refreshPlaces}/>
-              </div>
-            </div>
-          </div>
+        <div className='col-4 col-lg-3 h-100'>
+          <Header clearPlaces={clearPlaces} fetchData={fetchData} AddPhotos={AddPhotos} refreshPlaces={refreshPlaces}/>
           <div className='row mt-2 justify-content-center'>
 						<div className='col-12'>
             
@@ -87,16 +78,8 @@ function App() {
 
     
           {mobileNav == 0 ? <div>
-            <div className='header'>
-              <div className='row my-2'>
-					    	<div className='col-6'>
-                  <h2 className='m-0'>Photo Mapper</h2>
-                </div>
-					    	<div className='col-6'>
-                  <AddPhotos refreshPlaces={refreshPlaces}/>
-                </div>
-              </div>
-            </div>
+            <Header clearPlaces={clearPlaces} fetchData={fetchData} AddPhotos={AddPhotos} refreshPlaces={refreshPlaces}/>
+
             <div className='row mt-2 justify-content-center'>
 					  	<div className='col-12'>
               

@@ -39,9 +39,9 @@ function AddPhotos({refreshPlaces}) {
 	return (
 
 		<>
-			<button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-			  Add new photo
-			</button>
+
+			<i className="fa-solid fa-plus add-photo-toggle" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+
 
 			<div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  <div className="modal-dialog modal-lg modal-dialog-centered modal-fullscreen-lg-down">

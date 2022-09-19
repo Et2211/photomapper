@@ -73,6 +73,14 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 
 }
 
+.add-photo-toggle{
+  color: #a2a2a2;
+}
+
+i{
+  cursor: pointer;
+}
+
 .photo-feed {
   overflow-y: scroll;
   height: 100vh;
