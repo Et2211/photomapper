@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import isEmpty from 'lodash.isempty';
 
-import * as data from'./places.json'
-
 // components:
 import Marker from '../components/Marker';
 
@@ -52,12 +50,6 @@ class Main extends Component {
     this.state = {
       places: [],
     };
-  }
-
-  componentDidMount() {
-    this.setState({
-      places: data.default.results
-    })
   }
 
   render() {
