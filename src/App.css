@@ -101,6 +101,7 @@ i{
 .mobile-nav-link {
   color: green !important;
   height: 2em;
+  cursor: pointer;
 
 }
 

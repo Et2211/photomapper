@@ -5594,6 +5594,11 @@
   "resolved" "https://registry.npmjs.org/date-fns/-/date-fns-1.30.1.tgz"
   "version" "1.30.1"
 
+"date-fns@^2.29.3":
+  "integrity" "sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA=="
+  "resolved" "https://registry.npmjs.org/date-fns/-/date-fns-2.29.3.tgz"
+  "version" "2.29.3"
+
 "date-format@0.0.2":
   "integrity" "sha1-+v1Ej3IRXvHitzkVWukvK+bCjdE= sha512-M4obuJx8jU5T91lcbwi0+QPNVaWOY1DQYz5xUuKYWO93osVzB2ZPqyDUc5T+mDjbA1X8VOb4JDZ+8r2MrSOp7Q=="
   "resolved" "https://registry.npmjs.org/date-format/-/date-format-0.0.2.tgz"

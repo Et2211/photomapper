@@ -75,7 +75,8 @@ export const uploadToS3 = (fileContent, name, type, username, photoName, lat, ln
             photoName: photoName, 
             lat: lat, 
             lng: lng, 
-            url: data.Location
+            url: data.Location,
+            date: Date.now()
         }
         putData('Photos', dynamoData, refreshPlaces)
     });

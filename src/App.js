@@ -29,7 +29,6 @@ function App() {
 
   useEffect(()=>{
     fetchData('Photos', refreshPlaces)
-    console.log(width)
   }, [])
 
   return (
