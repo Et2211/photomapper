@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import isEmpty from 'lodash.isempty';
+import { format } from 'date-fns'
 
 // components:
 import Marker from './Marker';
@@ -76,6 +77,7 @@ class Main extends Component {
                 photo={place.url}
                 photoName={place.photoName}
                 username={place.username}
+                date={format(place.date, 'dd/MM/yyyy')}
                 />
               
                 )})}

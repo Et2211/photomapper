@@ -41,7 +41,7 @@ function useOutsideAlerter(ref, setShow) {
   }, [ref]);
 }
 
-const Marker = ({ text, onClick, photo, photoName, username }) => {
+const Marker = ({ text, onClick, photo, photoName, username, date }) => {
   const [show, setShow] = useState(false);
   const target = useRef(null);
   useOutsideAlerter(target, setShow);
@@ -73,7 +73,19 @@ return(
           >
             <div className='row image-popUp'>
               <div className='col-4'>
-                <h3 className='text-uppercase text-center'>{photoName}</h3>
+                <div className='row'>
+                  <div className='col-12'>
+                    <h3 className='text-uppercase text-center'>{photoName}</h3>
+                  </div>
+                </div>
+                <div className='row'>
+                  <div className='col-12'>
+                    <h6>{date}</h6>
+                  </div>
+                </div>
+
+
+
 
                 <p>Uploaded by {username}</p>
               </div>
