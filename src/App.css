@@ -79,6 +79,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 
 i{
   cursor: pointer;
+  z-index: 9999;
 }
 
 .photo-feed {

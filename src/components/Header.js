@@ -14,6 +14,9 @@ function Header({clearPlaces, fetchData, AddPhotos, refreshPlaces }) {
 				<h3 className="m-0">Photo Mapper</h3>
 			</div>
 			<div className="col">
+				<AddPhotos refreshPlaces={refreshPlaces} />
+			</div>
+			<div className="col">
 				<i
 					class="fa-solid fa-arrows-rotate"
 					onClick={() => {
@@ -21,9 +24,6 @@ function Header({clearPlaces, fetchData, AddPhotos, refreshPlaces }) {
 						fetchData("Photos", refreshPlaces);
 					}}
           ></i>
-			</div>
-			<div className="col">
-				<AddPhotos refreshPlaces={refreshPlaces} />
 			</div>
 		</div>
 	</div>

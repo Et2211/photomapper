@@ -39,15 +39,16 @@ function AddPhotos({refreshPlaces}) {
 	return (
 
 		<>
+			<div>
+				<i className="fa-solid fa-plus add-photo-toggle" data-bs-toggle="modal" data-bs-target="#addPhotoModal"></i>
+			</div>
 
-			<i className="fa-solid fa-plus add-photo-toggle" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
 
-
-			<div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div className="modal fade" id="addPhotoModal" tabIndex="-1" aria-labelledby="addPhotoModalLabel" aria-hidden="true">
 			  <div className="modal-dialog modal-lg modal-dialog-centered modal-fullscreen-lg-down">
 			    <div className="modal-content">
 			      <div className="modal-header">
-			        <h5 className="modal-title" id="exampleModalLabel">Add to the map!</h5>
+			        <h5 className="modal-title" id="addPhotoModalLabel">Add to the map!</h5>
 			        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			      </div>
 			      <div className="modal-body">
