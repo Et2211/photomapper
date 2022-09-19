@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import isEmpty from 'lodash.isempty';
 
 // components:
-import Marker from '../components/Marker';
+import Marker from './Marker';
 
 // examples:
-import GoogleMap from '../components/GoogleMap';
+import GoogleMap from './GoogleMap';
 
 // consts
 import LOS_ANGELES_CENTER from '../const/la_center';

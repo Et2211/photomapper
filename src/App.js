@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap'
-import Main from './examples/Main'
+import Main from './components/Main'
 import AddPhotos from './components/AddPhoto';
 import PhotoFeed from './components/PhotoFeed';
 import {fetchData} from './AwsFunctions';
