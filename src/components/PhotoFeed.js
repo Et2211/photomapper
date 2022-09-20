@@ -3,13 +3,10 @@ import { format } from 'date-fns'
 
 
 function PhotoFeed({ places }) {
-	console.log(places)
 	return (
 		<>
 			<div className="photo-feed">
 				{places.map((place) => {
-					console.log(place)
-					console.log(format(place.date, 'dd/MM/yyyy'))
 
 					return (
 						<div className="photo-in-feed">

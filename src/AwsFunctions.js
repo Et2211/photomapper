@@ -1,5 +1,5 @@
 import * as AWS from 'aws-sdk'
-import {loadPlaces} from './redux/actions/placeActions'
+
 import {keys} from './config'
 
 
@@ -12,7 +12,7 @@ const configuration = {
 AWS.config.update(configuration)
 
 const docClient = new AWS.DynamoDB.DocumentClient()
-
+/* 
 export const fetchData = async (tableName, callback) => {
 
     var params = {
@@ -26,7 +26,7 @@ export const fetchData = async (tableName, callback) => {
             console.log(err)
         }
     })
-}
+} */
 
 export const putData = (tableName , data, refreshPlaces) => {
     var params = {
@@ -40,7 +40,7 @@ export const putData = (tableName , data, refreshPlaces) => {
             console.log('Error', err)
         } else {
             console.log('Success', data)
-            fetchData('Photos', refreshPlaces)
+            //fetchData('Photos', refreshPlaces)
         }
     })
 }
@@ -67,7 +67,6 @@ export const uploadToS3 = (fileContent, name, type, username, photoName, lat, ln
         if (err) {
             throw err;
         }
-        console.log(`File uploaded successfully. ${data.Location}`);
 
         const dynamoData = {
             PhotoID: photoName + Date.now(),

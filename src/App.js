@@ -6,9 +6,9 @@ import 'bootstrap'
 import Main from './components/Main'
 import AddPhotos from './components/AddPhoto';
 import PhotoFeed from './components/PhotoFeed';
-import {fetchData} from './AwsFunctions';
 import {loadPlaces, clearPlaces} from './redux/actions/placeActions'
 import useWindowDimensions from './hooks/useWindowDimensions';
+import {getData} from './api'
 
 
 import fs from 'fs'
@@ -20,26 +20,26 @@ function App() {
   const dispatch = useDispatch()
   const [mobileNav, setMobileNav] = useState(0)
   const { height, width } = useWindowDimensions();
-  const places = useSelector(state => state.places.places.Items)
+  const places = useSelector(state => state.places.places)
 
 
-  const refreshPlaces = (data) => {
-    dispatch(loadPlaces(data))
-  }
+  const refreshPlaces = () => {
+    getData('http://localhost:9000/data').then((res)=>{
+      dispatch(loadPlaces(res))
+  })}
 
   useEffect(()=>{
-    fetchData('Photos', refreshPlaces)
+    refreshPlaces()
   }, [])
 
   return (
     <div className="App">
       {width > 768 ? <div className='row g-0 appContainer'>
         <div className='col-4 col-lg-3 h-100'>
-          <Header clearPlaces={clearPlaces} fetchData={fetchData} AddPhotos={AddPhotos} refreshPlaces={refreshPlaces}/>
+          <Header clearPlaces={clearPlaces} AddPhotos={AddPhotos} refreshPlaces={refreshPlaces}/>
           <div className='row mt-2 justify-content-center'>
 						<div className='col-12'>
-            
-              {places == undefined ?
+              {places == undefined || Object.keys(places).length == 0 ?
                 <div class="spinner-border" role="status">
                   <span class="visually-hidden">Loading...</span>
                 </div> 
@@ -77,7 +77,7 @@ function App() {
 
     
           {mobileNav == 0 ? <div>
-            <Header clearPlaces={clearPlaces} fetchData={fetchData} AddPhotos={AddPhotos} refreshPlaces={refreshPlaces}/>
+            <Header clearPlaces={clearPlaces} AddPhotos={AddPhotos} refreshPlaces={refreshPlaces}/>
 
             <div className='row mt-2 justify-content-center'>
 					  	<div className='col-12'>
