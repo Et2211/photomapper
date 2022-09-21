@@ -1,0 +1,91 @@
+import React, { Component } from 'react';
+import isEmpty from 'lodash.isempty';
+import { format } from 'date-fns'
+
+// components:
+import Marker from './Marker';
+
+// examples:
+import GoogleMap from './GoogleMap';
+
+// consts
+import LOS_ANGELES_CENTER from '../const/la_center';
+
+
+// Return map bounds based on list of places
+const getMapBounds = (map, maps, places) => {
+  const bounds = new maps.LatLngBounds();
+
+  places.forEach((place) => {
+    bounds.extend(new maps.LatLng(
+      place.lat,
+      place.lng,
+    ));
+  });
+  return bounds;
+};
+
+// Re-center map when resizing the window
+const bindResizeListener = (map, maps, bounds) => {
+  maps.event.addDomListenerOnce(map, 'idle', () => {
+    maps.event.addDomListener(window, 'resize', () => {
+      map.fitBounds(bounds);
+    });
+  });
+};
+
+// Fit map to its bounds after the api is loaded
+const apiIsLoaded = (map, maps, places) => {
+  // Get bounds by our places
+  const bounds = getMapBounds(map, maps, places);
+  // Fit map to bounds
+  map.fitBounds(bounds);
+  // Bind the resize listener
+  bindResizeListener(map, maps, bounds);
+};
+
+class Main extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      places: [],
+    };
+  }
+
+  render() {
+    const { places } = this.props;
+    return (
+      <div className='mapContainer'>
+        {!isEmpty(places) && (
+          <GoogleMap
+            defaultZoom={10}
+            defaultCenter={LOS_ANGELES_CENTER}
+            yesIWantToUseGoogleMapApiInternals
+            onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps, places)}
+
+          >
+            
+           
+            {places.map((place) => {
+              return (
+                <Marker
+                key={place.id}
+                text={place.name}
+                lat={place.lat}
+                lng={place.lng}
+                photo={place.url}
+                photoName={place.photoName}
+                username={place.username}
+                date={format(place.date, 'dd/MM/yyyy')}
+                />
+              
+                )})}
+              </GoogleMap>
+        )}
+      </div>
+    );
+  }
+}
+
+export default Main;
