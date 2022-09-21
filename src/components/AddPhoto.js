@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import {uploadToS3, putData} from './../AwsFunctions'
 import GoogleMapReact from 'google-map-react';
 import { postData } from '../api';
+import Resizer from "react-image-file-resizer";
+
 
 // examples:
 import GoogleMap from './GoogleMap';
@@ -12,6 +14,23 @@ import LOS_ANGELES_CENTER from './../const/la_center';
 
 function AddPhotos({refreshPlaces}) {
 
+	const resizeFile = (file) =>
+  	new Promise((resolve) => {
+    	Resizer.imageFileResizer(
+      	file,
+      	500,
+      	500,
+      	"JPEG",
+      	100,
+      	0,
+      	(uri) => {
+      	  resolve(uri);
+      	},
+      	"base64"
+    	);
+  	}
+	);
+
 	const [photoName, setPhotoName] = useState('')
 	const [username, setUsername] = useState('')
 	const [lng, setLng] = useState('')
@@ -19,25 +38,21 @@ function AddPhotos({refreshPlaces}) {
 	const [url, setUrl] = useState('')
 	const [error, setError] = useState(0)
 
-	const savetoAWS = () => {
+	const savetoAWS = async () => {
 		const files = document.getElementById('photoUpload').files[0];
 		if (files) {
-			//uploadToS3(files, files.name, files.type, username, photoName, lat, lng, refreshPlaces)
-			console.log(files)
-			var reader = new FileReader();
-			reader.readAsDataURL(files);
-			reader.onload = () => {
-				console.log(reader.result)
-				postData('/add-photo', {
-					photoData: reader.result,
-					fileName: files.name,
-					fileType: files.type, 
-					username: username, 
-					photoName: photoName, 
-					lat: lat, 
-					lng: lng
-				})
-			}
+			const image = await resizeFile(files);
+	
+			postData('/add-photo', {
+				photoData: image,
+				fileName: files.name,
+				fileType: files.type, 
+				username: username, 
+				photoName: photoName, 
+				lat: lat, 
+				lng: lng
+			})
+			
 
 
 

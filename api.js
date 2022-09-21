@@ -37,9 +37,52 @@ const scanTable = async (tableName) => {
 
 };
 
+const s3 = new AWS.S3({
+  accessKeyId: keys.accessKeyId,
+  secretAccessKey: keys.secretAccessKey,
+});
+
+const uploadToS3 = (fileContent, name, type, username, photoName, lat, lng, refreshPlaces) => {
+  //const fileContent = fs.readFileSync(fileName);
+
+  // Setting up S3 upload parameters
+  const params = {
+      Bucket: 'photo-mapper',
+      Key: 'Photos/' + photoName + Date.now() + '.jpg', // File name you want to save as in S3
+      Body: fileContent,
+      type: type,
+      ContentType: 'image/jpeg',
+      ContentEncoding: 'base64',
+  };
+
+  // Uploading files to the bucket
+   s3.upload(params, function(err, data) {
+      if (err) {
+          throw err;
+      } else {
+        console.log(data.Location)
+      }
+
+      const dynamoData = {
+          PhotoID: photoName + Date.now(),
+          username: username,
+          photoName: photoName, 
+          lat: lat, 
+          lng: lng, 
+          url: data.Location,
+          date: Date.now()
+      }
+      //putData('Photos', dynamoData, refreshPlaces)
+  });
+}
+
+
+
+
 
 app.use(express.static(path.join(__dirname, 'build')));
-app.use(bodyParser.urlencoded({limit: '10mb'}));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(express.json())
 app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -63,7 +106,9 @@ app.get('/data', function (req, res) {
 });
 
 app.post('/add-photo', function (req, res) {
-  console.log(req.body)
+  const base64Data = new Buffer.from(req.body.photoData.replace(/^data:image\/\w+;base64,/, ""), 'base64');
+  uploadToS3(base64Data, req.body.fileName, 'image/jpeg', req.body.username, req.body.photoName, req.body.lat, req.body.lng)
+
 });
 
 app.listen(9000);
