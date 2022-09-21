@@ -1,7 +1,8 @@
 const express = require('express');
 const path = require('path');
 const AWS = require('aws-sdk')
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
+const { response } = require('express');
 const app = express();
 
 const keys = {
@@ -42,7 +43,7 @@ const s3 = new AWS.S3({
   secretAccessKey: keys.secretAccessKey,
 });
 
-const uploadToS3 = (fileContent, name, type, username, photoName, lat, lng, refreshPlaces) => {
+const uploadToS3 = (fileContent, name, type, username, photoName, lat, lng, callback) => {
   //const fileContent = fs.readFileSync(fileName);
 
   // Setting up S3 upload parameters
@@ -72,11 +73,29 @@ const uploadToS3 = (fileContent, name, type, username, photoName, lat, lng, refr
           url: data.Location,
           date: Date.now()
       }
-      //putData('Photos', dynamoData, refreshPlaces)
+      putData('Photos', dynamoData, callback)
   });
 }
 
+const putData = (tableName , data, callback) => {
+  var params = {
+      TableName: tableName,
+      Item: data,
+  }
+  console.log(params)
+  
+  documentClient.put(params, function (err, data) {
+      if (err) {
+          console.log('Error')
+          callback()
 
+      } else {
+          console.log('Success')
+          callback()
+
+      }
+  })
+}
 
 
 
@@ -105,10 +124,9 @@ app.get('/data', function (req, res) {
   })
 });
 
-app.post('/add-photo', function (req, res) {
+app.post('/add-photo', async function (req, res) {
   const base64Data = new Buffer.from(req.body.photoData.replace(/^data:image\/\w+;base64,/, ""), 'base64');
-  uploadToS3(base64Data, req.body.fileName, 'image/jpeg', req.body.username, req.body.photoName, req.body.lat, req.body.lng)
-
+  uploadToS3(base64Data, req.body.fileName, 'image/jpeg', req.body.username, req.body.photoName, req.body.lat, req.body.lng, ()=>{res.status(200).json({status:"ok"})})
 });
 
 app.listen(9000);
