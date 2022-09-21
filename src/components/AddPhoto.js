@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import {uploadToS3, putData} from './../AwsFunctions'
 import GoogleMapReact from 'google-map-react';
 import { postData } from '../api';
 import Resizer from "react-image-file-resizer";
@@ -51,7 +50,7 @@ function AddPhotos({refreshPlaces}) {
 				photoName: photoName, 
 				lat: lat, 
 				lng: lng
-			})
+			}).then(()=>refreshPlaces())
 			
 
 
@@ -59,6 +58,7 @@ function AddPhotos({refreshPlaces}) {
 
 		} else {
 			setError(1)
+			console.log('error')
 		}
 	}
 
