@@ -8,7 +8,7 @@ import AddPhotos from './components/AddPhoto';
 import PhotoFeed from './components/PhotoFeed';
 import {loadPlaces, clearPlaces} from './redux/actions/placeActions'
 import useWindowDimensions from './hooks/useWindowDimensions';
-import {getData} from './api'
+import {getData, postData} from './api'
 
 
 import fs from 'fs'
@@ -24,9 +24,10 @@ function App() {
 
 
   const refreshPlaces = () => {
-    getData('http://localhost:9000/data').then((res)=>{
+    getData('/data').then((res)=>{
       dispatch(loadPlaces(res))
-  })}
+    }
+  )}
 
   useEffect(()=>{
     refreshPlaces()

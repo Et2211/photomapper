@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const AWS = require('aws-sdk')
+var bodyParser = require('body-parser')
 const app = express();
 
 const keys = {
@@ -38,6 +39,8 @@ const scanTable = async (tableName) => {
 
 
 app.use(express.static(path.join(__dirname, 'build')));
+app.use(bodyParser.urlencoded({limit: '10mb'}));
+app.use(express.json())
 app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
@@ -57,6 +60,10 @@ app.get('/data', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.send(response);
   })
+});
+
+app.post('/add-photo', function (req, res) {
+  console.log(req.body)
 });
 
 app.listen(9000);

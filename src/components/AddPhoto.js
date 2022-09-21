@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {uploadToS3, putData} from './../AwsFunctions'
 import GoogleMapReact from 'google-map-react';
+import { postData } from '../api';
 
 // examples:
 import GoogleMap from './GoogleMap';
@@ -21,7 +22,26 @@ function AddPhotos({refreshPlaces}) {
 	const savetoAWS = () => {
 		const files = document.getElementById('photoUpload').files[0];
 		if (files) {
-			uploadToS3(files, files.name, files.type, username, photoName, lat, lng, refreshPlaces)
+			//uploadToS3(files, files.name, files.type, username, photoName, lat, lng, refreshPlaces)
+			console.log(files)
+			var reader = new FileReader();
+			reader.readAsDataURL(files);
+			reader.onload = () => {
+				console.log(reader.result)
+				postData('/add-photo', {
+					photoData: reader.result,
+					fileName: files.name,
+					fileType: files.type, 
+					username: username, 
+					photoName: photoName, 
+					lat: lat, 
+					lng: lng
+				})
+			}
+
+
+
+
 		} else {
 			setError(1)
 		}
