@@ -1,5 +1,5 @@
 
-const domain = process.env.NODE_ENV == 'development'  ? "http://localhost:9000"  : "http://localhost:9000"
+const domain = process.env.NODE_ENV == 'development'  ? "http://localhost:9000"  : "https://photo-mapper.herokuapp.com/"
 
 // Example POST method implementation:
 export async function postData(url = '', data = {}) {
