@@ -129,6 +129,6 @@ app.post('/add-photo', async function (req, res) {
   uploadToS3(base64Data, req.body.fileName, 'image/jpeg', req.body.username, req.body.photoName, req.body.lat, req.body.lng, ()=>{res.status(200).json({status:"ok"})})
 });
 
-app.listen(process.env.PORT || 3000, function(){
+app.listen(process.env.PORT || 9000, function(){
   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
