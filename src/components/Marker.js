@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
+import Modal from 'react-bootstrap/Modal';
+import { Button } from 'react-bootstrap';
 import useWindowDimensions from './../hooks/useWindowDimensions'
 
 
@@ -43,8 +45,13 @@ function useOutsideAlerter(ref, setShow) {
   }, [ref]);
 }
 
-const Marker = ({ text, onClick, photo, photoName, username, date }) => {
+const Marker = ({ text, onClick, photo, photoName, username, date, i }) => {
   const { height, width } = useWindowDimensions();
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [fullscreen, setFullscreen] = useState(true);
 
 
   useEffect(()=>{
@@ -63,15 +70,43 @@ const Marker = ({ text, onClick, photo, photoName, username, date }) => {
     </Popover>
   );
 
-return(
-  <>
-    <OverlayTrigger trigger="click" placement="top" overlay={popover} rootClose>
-      <Wrapper variant="success"></Wrapper>
-    </OverlayTrigger>
+  const desktopOverlay = () => {
+    return(
+      <OverlayTrigger trigger="click" placement="top" overlay={popover} rootClose>
+        <Wrapper variant="success"></Wrapper>
+      </OverlayTrigger>
+    )
+  }
 
+  const mobileOverlay = () => {
+    return(
+      <>
 
-</>
-);
+      <Wrapper variant="primary" onClick={handleShow}>
+      </Wrapper>
+
+      <Modal show={show} onHide={handleClose} fullscreen>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Uploaded by {username}</p>
+          <div className='image-container'>
+            <img src={photo} className='w-100'></img>
+          </div>
+        </Modal.Body>
+
+      </Modal>
+      </>
+    )
+  }
+
+  if (width > 768) {
+    return desktopOverlay()
+  }else {
+    return mobileOverlay()
+  }  
+
 }
 Marker.defaultProps = {
   onClick: null,
