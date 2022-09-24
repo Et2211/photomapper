@@ -59,21 +59,19 @@ function App() {
 
       <div className='row g-0 appContainer'>
 
-
-        <div>
-          <div className='row'>
-					  <div className='col-6 align-self-center'>
+          <div className='row g-0 mobile-nav my-auto justify-content-center align-items-center'>
+					  <div className='col-6'>
               <div className={mobileNav == 0 ? "mobile-nav-link active" : "mobile-nav-link"} onClick={()=>setMobileNav(0)}>
-                <a>Photo Feed</a>
+                <p className='m-0'><i class="fa-solid fa-camera"></i></p>
               </div>
             </div>
-            <div className='col-6 align-self-center'>
+            <div className='col-6'>
               <div className={mobileNav == 1 ? "mobile-nav-link active" : "mobile-nav-link"} onClick={()=>setMobileNav(1)}>
-                <a>World map</a>
+                <p className='m-0'><i class="fa-solid fa-earth-europe"></i></p>
               </div>
             </div>
           </div>
-        </div>
+    
 
 
     
@@ -94,8 +92,10 @@ function App() {
             </div>
           </div>
           :
-          <div>
-            <Main places = {places}/>
+          <div className='row g-0'>
+            <div className='col'>
+              <Main places = {places}/>
+            </div>
           </div>
           }
         </div>

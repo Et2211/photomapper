@@ -2,7 +2,7 @@
 html, body {margin: 0; height: 100%; overflow: hidden}
 .App {
   text-align: center;
-
+  --navbar-height: 3em;
 }
 
 .appContainer{
@@ -48,16 +48,8 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 }
 
 .mapContainer{
-  height: 100vh;
+  height: calc(100vh - var(--navbar-height));
   width: 100%;
-}
-
-@media only screen and (max-width: 762px) {
-  .mapContainer{
-    height: 90vh;
-  }
-  
-
 }
 
 .modal-mapContainer{
@@ -96,13 +88,17 @@ i{
 }
 
 .mobile-nav-link {
-  color: green !important;
-  height: 2em;
+  color: black !important;
   cursor: pointer;
 
 }
 
+.mobile-nav{
+  height: var(--navbar-height);
+  align-items: center;
+}
+
 .mobile-nav-link.active {
-  color: black !important;
-  border-bottom: 2px solid green;
+  color: green !important;
+  
 }
