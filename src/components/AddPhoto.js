@@ -139,11 +139,11 @@ function AddPhotos({refreshPlaces}) {
 							</div>
 
 
-							<input type='file' name='files[]' id='photoUpload'/>
+							<input type='file' name='files[]' multiple accept="image/*" id='photoUpload'/>
 			      </div>
 			      <div className="modal-footer">
 			        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-			        <button type="button" className="btn btn-primary" onClick={()=>savetoAWS()} data-bs-dismiss="modal">Save changes</button>
+			        <button type="button" className="btn btn-primary" onClick={()=>savetoAWS()} data-bs-dismiss="modal">Add photo</button>
 			      </div>
 			    </div>
 			  </div>
