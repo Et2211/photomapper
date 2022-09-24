@@ -10,10 +10,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
   width: 100vw;
 }
 
-.image-container{
-  max-width: 400px;
-  max-height: 400px;
-}
+
 
 .App-logo {
   height: 40vmin;
