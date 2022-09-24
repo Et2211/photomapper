@@ -20,7 +20,7 @@ function Header({clearPlaces, AddPhotos, refreshPlaces }) {
 				<i
 					class="fa-solid fa-arrows-rotate"
 					onClick={() => {
-            dispatch(clearPlaces());
+            			dispatch(clearPlaces());
 						refreshPlaces()
 					}}
           ></i>
