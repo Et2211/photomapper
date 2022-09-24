@@ -3,13 +3,11 @@ import { format } from 'date-fns'
 
 
 function PhotoFeed({ places }) {
-	if (places.length > 0){
-
-		return (
-			<>
+	return (
+		<>
 			<div className="photo-feed">
 				{places.map((place) => {
-					
+
 					return (
 						<div className="photo-in-feed">
 							<div className="row justify-content-center">
@@ -36,10 +34,7 @@ function PhotoFeed({ places }) {
 				})}
 			</div>
 		</>
-		);
-	} else {
-		return null
-	}
+	);
 }
 
 export default PhotoFeed;
