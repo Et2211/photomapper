@@ -59,7 +59,7 @@ function App() {
 
       <div className='row g-0 appContainer'>
 
-          <div className='row g-0 mobile-nav my-auto justify-content-center align-items-center'>
+          <div className='row g-0 mobile-nav justify-content-center align-items-center'>
 					  <div className='col-6'>
               <div className={mobileNav == 0 ? "mobile-nav-link active" : "mobile-nav-link"} onClick={()=>setMobileNav(0)}>
                 <p className='m-0'><i class="fa-solid fa-camera"></i></p>
@@ -75,15 +75,19 @@ function App() {
 
 
     
-          {mobileNav == 0 ? <div>
+          {mobileNav == 0 ? <div className='h-100'>
             <Header clearPlaces={clearPlaces} AddPhotos={AddPhotos} refreshPlaces={refreshPlaces}/>
 
             <div className='row mt-2 justify-content-center'>
 					  	<div className='col-12'>
               
-                {places == undefined ?
-                  <div class="spinner-border" role="status">
-                    <span class="visually-hidden">Loading...</span>
+                {places == undefined || Object.keys(places).length == 0 ?
+                  <div className='row h-100'>
+                    <div className='col-12'>
+                      <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                      </div> 
+                    </div> 
                   </div> 
                 : 
                   <PhotoFeed places = {places}/>
