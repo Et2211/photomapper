@@ -48,8 +48,14 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 }
 
 .mapContainer{
-  height: calc(100vh - var(--navbar-height));
+  height: 100vh;
   width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .mapContainer{
+    height: calc(100vh - var(--navbar-height));
+  } 
 }
 
 .modal-mapContainer{
@@ -74,7 +80,7 @@ i{
 .photo-feed {
   overflow-y: scroll;
   height: 100vh;
-  padding-bottom: 6em;
+  padding-bottom: 8em;
 }
 
 .photo-in-feed {
