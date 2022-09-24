@@ -67,7 +67,7 @@ class Main extends Component {
           >
             
            
-            {places.map((place) => {
+            {places.map((place, i) => {
               return (
                 <Marker
                 key={place.id}
@@ -78,6 +78,7 @@ class Main extends Component {
                 photoName={place.photoName}
                 username={place.username}
                 date={format(place.date, 'dd/MM/yyyy')}
+                i={i}
                 />
               
                 )})}
