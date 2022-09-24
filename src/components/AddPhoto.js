@@ -2,16 +2,20 @@ import React, { useEffect, useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 import { postData } from '../api';
 import Resizer from "react-image-file-resizer";
+import isEmpty from 'lodash.isempty';
 
-
-// examples:
-import GoogleMap from './GoogleMap';
+import apiIsLoaded from '../hooks/useMapBounds';
 
 // consts
 import LOS_ANGELES_CENTER from './../const/la_center';
 
+import {useSelector} from 'react-redux'
+import GoogleMap from './GoogleMap';
+
+
 
 function AddPhotos({refreshPlaces}) {
+	const places = useSelector(state => state.places.places)
 
 	const resizeFile = (file) =>
   	new Promise((resolve) => {
@@ -37,6 +41,7 @@ function AddPhotos({refreshPlaces}) {
 	const [url, setUrl] = useState('')
 	const [error, setError] = useState(0)
 
+
 	const savetoAWS = async () => {
 		const files = document.getElementById('photoUpload').files[0];
 		if (files) {
@@ -61,10 +66,6 @@ function AddPhotos({refreshPlaces}) {
 			console.log('error')
 		}
 	}
-
-	const handleApiLoaded = (map, maps) => {
-		// use map and maps objects
-	};
 
 	const setCoordinates = (e) => {
 		setLat(e.lat)
@@ -122,20 +123,18 @@ function AddPhotos({refreshPlaces}) {
 
 
 							<div className='modal-mapContainer'>
-
-
-							<GoogleMapReact
-    					  bootstrapURLKeys={{
-    					    key:'AIzaSyDMvSLjIjkexqyJ1PxJb-AnnsoOY_nLfNM',
-    					  }}
+							{console.log('RENDERING')}
+							{!isEmpty(places) && (
+							<GoogleMap
 								defaultCenter={LOS_ANGELES_CENTER}
-								defaultZoom={10}
+								defaultZoom={3}
 								yesIWantToUseGoogleMapApiInternals
-    					  onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
+								onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps, places)}
 								onClick ={(e)=>setCoordinates(e)}
     					>
     					  
-    					</GoogleMapReact>
+    						</GoogleMap>
+							)}
 							</div>
 
 
