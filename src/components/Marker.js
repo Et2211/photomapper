@@ -87,7 +87,7 @@ const Marker = ({ text, onClick, photo, photoName, username, date, i }) => {
 
       <Modal show={show} onHide={handleClose} fullscreen>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>{photoName}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <p>Uploaded by {username}</p>
