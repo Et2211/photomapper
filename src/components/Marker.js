@@ -10,13 +10,26 @@ import useWindowDimensions from './../hooks/useWindowDimensions'
 
 
 
-const Wrapper = styled.div`
+
+
+
+const Marker = ({ text, onClick, photo, photoName, username, date, i }) => {
+  const { height, width } = useWindowDimensions();
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [fullscreen, setFullscreen] = useState(true);
+
+  const Wrapper = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 18px;
-  height: 18px;
-  background-color: #000;
+  width: 50px;
+  height: 50px;
+  background: url(${photo});
+  background-size: 50px 50px;
+  background-repeat:no-repeat;
   border: 2px solid #fff;
   border-radius: 100%;
   user-select: none;
@@ -26,32 +39,6 @@ const Wrapper = styled.div`
     z-index: 1;
   }
 `;
-function useOutsideAlerter(ref, setShow) {
-  useEffect(() => {
-    /**
-     * Alert if clicked on outside of element
-     */
-    function handleClickOutside(event) {
-      if (ref.current && !ref.current.contains(event.target)) {
-        setShow(false)
-      }
-    }
-    // Bind the event listener
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      // Unbind the event listener on clean up
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [ref]);
-}
-
-const Marker = ({ text, onClick, photo, photoName, username, date, i }) => {
-  const { height, width } = useWindowDimensions();
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const [fullscreen, setFullscreen] = useState(true);
 
 
   useEffect(()=>{
