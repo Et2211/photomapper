@@ -34,12 +34,10 @@ function App() {
 
 
   const showOnMap = (place) => {
-    console.log(place)
     setCenter([place.lat, place.lng])
     setZoom(width > 768 ? 12 : 10)
     setMobileNav(1)
     setUseSinglePlace(place)
-
   }
 
   useEffect(()=>{

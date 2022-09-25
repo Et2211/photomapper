@@ -7,31 +7,22 @@ import Modal from 'react-bootstrap/Modal';
 import { Button } from 'react-bootstrap';
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
-
-const NewPhotoMarkerBlank = ({ text, onClick, photo, photoName, username, date, i }) => {
-  const { height, width } = useWindowDimensions();
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const [fullscreen, setFullscreen] = useState(true);
-
-  const Wrapper = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 50px;
-  height: 50px;
-  border: 2px solid #fff;
-  background: #fff;
-  border-radius: 100%;
-  user-select: none;
-  transform: translate(-50%, -120%);
-  cursor: pointer;
-  z-index: 300
-  &:hover {
-    z-index: 1;
-  }
+const Wrapper = styled.div`
+position: absolute;
+top: 50%;
+left: 50%;
+width: 50px;
+height: 50px;
+border: 2px solid #fff;
+background: #fff;
+border-radius: 100%;
+user-select: none;
+transform: translate(-50%, -120%);
+cursor: pointer;
+z-index: 300
+&:hover {
+  z-index: 1;
+}
 `;
 
 const Point = styled.div`
@@ -46,9 +37,20 @@ transform: translate(-50%, -125%) rotate(45deg);
 z-index: 200
 
 &:hover {
-  z-index: 1;
+z-index: 1;
 }
 `;
+
+
+const NewPhotoMarkerBlank = ({ text, onClick, photo, photoName, username, date, i }) => {
+  const { height, width } = useWindowDimensions();
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [fullscreen, setFullscreen] = useState(true);
+
+
 
 
   useEffect(()=>{
