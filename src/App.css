@@ -1,9 +1,13 @@
 
-html, body {margin: 0; height: 100%; overflow: hidden}
+html, body {
+  margin: 0; 
+  height: 100%; 
+  overflow: hidden;
+  font-family: 'Nexa', sans-serif;
+}
 .App {
   text-align: center;
   --navbar-height: 3em;
-  font-family: 'Nexa', sans-serif;
 }
 
 .appContainer{
