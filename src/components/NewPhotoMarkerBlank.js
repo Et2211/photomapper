@@ -8,7 +8,7 @@ import { Button } from 'react-bootstrap';
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
 
-const NewPhotoMarker = ({ text, onClick, photo, photoName, username, date, i }) => {
+const NewPhotoMarkerBlank = ({ text, onClick, photo, photoName, username, date, i }) => {
   const { height, width } = useWindowDimensions();
   const [show, setShow] = useState(false);
 
@@ -22,12 +22,11 @@ const NewPhotoMarker = ({ text, onClick, photo, photoName, username, date, i }) 
   left: 50%;
   width: 50px;
   height: 50px;
-  background: url(${photo});
-  background-size: 50px 50px;
   border: 2px solid #fff;
+  background: #fff;
   border-radius: 100%;
   user-select: none;
-  transform: translate(-50%, -125%);
+  transform: translate(-50%, -120%);
   cursor: pointer;
   z-index: 300
   &:hover {
@@ -43,7 +42,7 @@ width: 30px;
 height: 30px;
 background: #fff;
 cursor: pointer;
-transform: translate(-50%, -120%) rotate(45deg);
+transform: translate(-50%, -125%) rotate(45deg);
 z-index: 200
 
 &:hover {
@@ -64,8 +63,9 @@ z-index: 200
 
     return(
         <>
-        <Point/>
+        <Point></Point>
         <Wrapper variant="success">
+            <i class="fa-solid fa-camera-retro wrapper-cam"></i>
         </Wrapper>
         </>
 
@@ -75,12 +75,12 @@ z-index: 200
   return desktopOverlay()
 
 }
-NewPhotoMarker.defaultProps = {
+NewPhotoMarkerBlank.defaultProps = {
   onClick: null,
 };
 
-NewPhotoMarker.propTypes = {
+NewPhotoMarkerBlank.propTypes = {
   onClick: PropTypes.func,
 };
 
-export default NewPhotoMarker;
+export default NewPhotoMarkerBlank;

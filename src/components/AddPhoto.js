@@ -9,6 +9,7 @@ import apiIsLoaded from '../hooks/useMapBounds';
 // consts
 import LOS_ANGELES_CENTER from './../const/la_center';
 import NewPhotoMarker from './NewPhotoMarker';
+import NewPhotoMarkerBlank from './NewPhotoMarkerBlank';
 
 import {useSelector} from 'react-redux'
 import GoogleMap from './GoogleMap';
@@ -140,8 +141,19 @@ function AddPhotos({refreshPlaces}) {
 								onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps, places)}
 								onClick ={(e)=>setCoordinates(e)}
 								>
-            					{lng != '' && 
+            					{lng != '' && lat != '' && 
+
+									photo != '' ?
 									<NewPhotoMarker 
+                					text={username}
+                					lat={lat}
+                					lng={lng}
+                					photo={photo}
+                					photoName={photoName}
+                					username={username}
+                					/>
+									:
+									<NewPhotoMarkerBlank  
                 					text={username}
                 					lat={lat}
                 					lng={lng}

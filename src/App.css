@@ -106,5 +106,9 @@ i{
 
 .mobile-nav-link.active {
   color: green !important;
-  
+}
+
+.wrapper-cam{
+  font-size: 20px;  
+  padding-top: 12px;
 }
