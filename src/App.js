@@ -32,10 +32,19 @@ function App() {
     }
   )}
 
+  const resetPlaces = () => {
+    dispatch(clearPlaces())
+    setCenter('')
+    setZoom('')
+    setUseSinglePlace(0)
+  }
+
+
 
   const showOnMap = (place) => {
+    console.log(place)
     setCenter([place.lat, place.lng])
-    setZoom(width > 768 ? 12 : 10)
+    setZoom(12)
     setMobileNav(1)
     setUseSinglePlace(place)
   }
@@ -48,7 +57,7 @@ function App() {
     <div className="App">
       {width > 768 ? <div className='row g-0 appContainer'>
         <div className='col-4 col-lg-3 h-100'>
-          <Header clearPlaces={clearPlaces} AddPhotos={AddPhotos} refreshPlaces={refreshPlaces}/>
+          <Header resetPlaces={resetPlaces} AddPhotos={AddPhotos} refreshPlaces={refreshPlaces}/>
           <div className='row mt-2 justify-content-center'>
 						<div className='col-12'>
               {places == undefined || Object.keys(places).length == 0 ?
@@ -62,7 +71,7 @@ function App() {
           </div>
         </div>
         <div className='col'>
-          <Main places = {places} zoom={zoom} center={center} useSinglePlace={0}/>
+          <Main places = {places} zoom={zoom} center={center} useSinglePlace={useSinglePlace}/>
         </div>
       </div>
 
