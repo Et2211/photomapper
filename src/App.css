@@ -207,14 +207,6 @@ i{
   top: 0;
 }
 
-body {
-  font-family: "Literata", serif;
-  font-size: 18px;
-  line-height: 1.3;
-  margin: 1rem 0;
-  text-align: center;
-}
-
 .wrapper {
   background-color: #fff;
   border-radius: 1rem;
