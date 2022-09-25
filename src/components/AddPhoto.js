@@ -8,6 +8,7 @@ import apiIsLoaded from '../hooks/useMapBounds';
 
 // consts
 import LOS_ANGELES_CENTER from './../const/la_center';
+import NewPhotoMarker from './NewPhotoMarker';
 
 import {useSelector} from 'react-redux'
 import GoogleMap from './GoogleMap';
@@ -35,15 +36,16 @@ function AddPhotos({refreshPlaces}) {
 	);
 
 	const [photoName, setPhotoName] = useState('')
+	const [photo, setPhoto] = useState('')
 	const [username, setUsername] = useState('')
 	const [lng, setLng] = useState('')
 	const [lat, setLat] = useState('')
-	const [url, setUrl] = useState('')
 	const [error, setError] = useState(0)
 
 
 	const savetoAWS = async () => {
 		const files = document.getElementById('photoUpload').files[0];
+		setPhoto(files)
 		if (files) {
 			const image = await resizeFile(files);
 	
@@ -70,6 +72,12 @@ function AddPhotos({refreshPlaces}) {
 	const setCoordinates = (e) => {
 		setLat(e.lat)
 		setLng(e.lng)
+	}
+
+	const loadFile = () => {
+		console.log('loadingh')
+		const files = document.getElementById('photoUpload').files[0];
+		setPhoto(URL.createObjectURL(files))
 	}
 
 	return (
@@ -131,14 +139,24 @@ function AddPhotos({refreshPlaces}) {
 								yesIWantToUseGoogleMapApiInternals
 								onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps, places)}
 								onClick ={(e)=>setCoordinates(e)}
-    					>
-    					  
+								>
+            					{lng != '' && 
+									<NewPhotoMarker 
+                					text={username}
+                					lat={lat}
+                					lng={lng}
+                					photo={photo}
+                					photoName={photoName}
+                					username={username}
+                					/>
+								}
+    
     						</GoogleMap>
 							)}
 							</div>
 
 
-							<input type='file' name='files[]' multiple accept="image/*" id='photoUpload'/>
+						<input type='file' name='files[]' multiple accept="image/*" id='photoUpload' onChange={()=>loadFile()}/>
 			      </div>
 			      <div className="modal-footer">
 			        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
