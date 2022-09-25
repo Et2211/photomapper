@@ -8,6 +8,7 @@ html, body {
 .App {
   text-align: center;
   --navbar-height: 3em;
+  --theme-color: green;
   font-family: 'Nexa', sans-serif;
 
 }
@@ -85,14 +86,32 @@ i{
 }
 
 .photo-feed {
-  overflow-y: scroll;
+  overflow-y: auto;
   height: 100vh;
   padding-bottom: 8em;
 }
 
+
+.photo-feed::-webkit-scrollbar {
+  width: 5px;
+}
+
+.photo-feed::-webkit-scrollbar-track {
+  background-color: #e4e4e4;
+  border-radius: 100px;
+}
+
+.photo-feed::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  border: 6px solid rgba(0, 0, 0, 0.18);
+  border-left: 0;
+  border-right: 0;
+  background-color: var(--theme-color);
+}
+
 .photo-in-feed {
   margin: 0.5em;
-  border: 3px solid green;
+  border: 3px solid var(--theme-color);;
   border-radius: 25px;
 }
 
@@ -112,7 +131,7 @@ i{
 }
 
 .mobile-nav-link.active {
-  color: green !important;
+  color: var(--theme-color) !important;
 }
 
 .wrapper-cam{
