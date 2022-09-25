@@ -117,7 +117,6 @@ function AddPhotos({ refreshPlaces }) {
 							</div>
 
 							<div className='modal-mapContainer my-3'>
-								{console.log('RENDERING')}
 								{!isEmpty(places) && (
 									<GoogleMap
 										defaultCenter={LOS_ANGELES_CENTER}

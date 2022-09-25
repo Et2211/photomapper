@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {useDispatch, useSelector} from 'react-redux'
 
 
-function Header({clearPlaces, AddPhotos, refreshPlaces }) {
+function Header({resetPlaces, AddPhotos, refreshPlaces }) {
 
   const dispatch = useDispatch()
 
@@ -20,7 +20,7 @@ function Header({clearPlaces, AddPhotos, refreshPlaces }) {
 				<i
 					class="fa-solid fa-arrows-rotate"
 					onClick={() => {
-            			dispatch(clearPlaces());
+            			resetPlaces();
 						refreshPlaces()
 					}}
           ></i>
