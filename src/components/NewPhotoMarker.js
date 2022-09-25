@@ -27,7 +27,7 @@ const NewPhotoMarker = ({ text, onClick, photo, photoName, username, date, i }) 
   border: 2px solid #fff;
   border-radius: 100%;
   user-select: none;
-  transform: translate(-50%, -125%);
+  transform: translate(-50%, -120%);
   cursor: pointer;
   z-index: 300
   &:hover {
