@@ -3,6 +3,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 .App {
   text-align: center;
   --navbar-height: 3em;
+  font-family: 'Nexa', sans-serif;
 }
 
 .appContainer{
