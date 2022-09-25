@@ -8,6 +8,8 @@ html, body {
 .App {
   text-align: center;
   --navbar-height: 3em;
+  font-family: 'Nexa', sans-serif;
+
 }
 
 .appContainer{
