@@ -7,6 +7,22 @@ import Modal from 'react-bootstrap/Modal';
 import { Button } from 'react-bootstrap';
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
+const Point = styled.div`
+position: absolute;
+top: 50%;
+left: 50%;
+width: 30px;
+height: 30px;
+background: #fff;
+cursor: pointer;
+transform: translate(-50%, -120%) rotate(45deg);
+z-index: 200
+
+&:hover {
+  z-index: 1;
+}
+`;
+
 
 const NewPhotoMarker = ({ text, onClick, photo, photoName, username, date, i }) => {
   const { height, width } = useWindowDimensions();
@@ -35,21 +51,7 @@ const NewPhotoMarker = ({ text, onClick, photo, photoName, username, date, i }) 
   }
 `;
 
-const Point = styled.div`
-position: absolute;
-top: 50%;
-left: 50%;
-width: 30px;
-height: 30px;
-background: #fff;
-cursor: pointer;
-transform: translate(-50%, -120%) rotate(45deg);
-z-index: 200
 
-&:hover {
-  z-index: 1;
-}
-`;
 
 
   useEffect(()=>{
