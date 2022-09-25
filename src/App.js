@@ -19,6 +19,9 @@ import Header from './components/Header';
 function App() {
   const dispatch = useDispatch()
   const [mobileNav, setMobileNav] = useState(0)
+  const [zoom, setZoom] = useState('')
+  const [center, setCenter] = useState('')
+  const [useSinglePlace, setUseSinglePlace] = useState(0)
   const { height, width } = useWindowDimensions();
   const places = useSelector(state => state.places.places)
 
@@ -28,6 +31,16 @@ function App() {
       dispatch(loadPlaces(res))
     }
   )}
+
+
+  const showOnMap = (place) => {
+    console.log(place)
+    setCenter([place.lat, place.lng])
+    setZoom(width > 768 ? 12 : 10)
+    setMobileNav(1)
+    setUseSinglePlace(place)
+
+  }
 
   useEffect(()=>{
     refreshPlaces()
@@ -45,13 +58,13 @@ function App() {
                   <span class="visually-hidden">Loading...</span>
                 </div> 
               : 
-                <PhotoFeed places = {places}/>
+                <PhotoFeed places = {places} showOnMap={showOnMap}/>
               }
             </div>
           </div>
         </div>
         <div className='col'>
-          <Main places = {places}/>
+          <Main places = {places} zoom={zoom} center={center} useSinglePlace={0}/>
         </div>
       </div>
 
@@ -61,7 +74,7 @@ function App() {
 
           <div className='row g-0 mobile-nav justify-content-center align-items-center'>
 					  <div className='col-6'>
-              <div className={mobileNav == 0 ? "mobile-nav-link active" : "mobile-nav-link"} onClick={()=>setMobileNav(0)}>
+              <div className={mobileNav == 0 ? "mobile-nav-link active" : "mobile-nav-link"} onClick={()=>{setUseSinglePlace(0); setMobileNav(0)}}>
                 <p className='m-0'><i class="fa-solid fa-camera"></i></p>
               </div>
             </div>
@@ -90,7 +103,7 @@ function App() {
                     </div> 
                   </div> 
                 : 
-                  <PhotoFeed places = {places}/>
+                  <PhotoFeed places = {places} showOnMap={showOnMap}/>
                 }
               </div>
             </div>
@@ -98,7 +111,7 @@ function App() {
           :
           <div className='row g-0'>
             <div className='col'>
-              <Main places = {places}/>
+              <Main places = {places} zoom={zoom} center={center} useSinglePlace={useSinglePlace}/>
             </div>
           </div>
           }
