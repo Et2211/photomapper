@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { format } from 'date-fns'
+import TimeAgo from 'javascript-time-ago'
+import _ from 'lodash'
 
+// English.
+import en from 'javascript-time-ago/locale/en'
 
 function PhotoFeed({ places, showOnMap }) {
+	TimeAgo.addDefaultLocale(en)
+	const timeAgo = new TimeAgo('en-US')
 	return (
 		<>
 			<div className="photo-feed">
-				{places.map((place) => {
+				{_.orderBy(places, 'date', 'desc').map((place) => {
 
 					return (
 						<div className="photo-in-feed pt-3 text-start">
@@ -20,7 +26,7 @@ function PhotoFeed({ places, showOnMap }) {
 									<h5 className=""> Uploaded by {place.username}</h5>
 								</div>
 								<div className="col-6">
-									<h6>{format(place.date, 'dd/MM/yyyy')}</h6>
+									<h6>{timeAgo.format(Date.now() - (Date.now() - place.date))}</h6>
 								</div>
 								<div className="col-6">
 									<h6 onClick={()=>showOnMap(place)}><span className="show-on-map">Show on map</span></h6>
