@@ -121,6 +121,12 @@ i{
 }
 
 
+.show-on-map{
+  color: #0000EE;
+  cursor: pointer;
+}
+
+
 [type=file] {
   height: 0;
   overflow: hidden;

@@ -25,14 +25,23 @@ class Main extends Component {
 
   render() {
     const { places } = this.props;
+    let placeBounds
+    if (this.props.useSinglePlace != 0) {
+      placeBounds = [this.props.useSinglePlace]
+    } else {
+      placeBounds = places
+    }
+    
     return (
       <div className='mapContainer'>
         {!isEmpty(places) && (
           <GoogleMap
             defaultZoom={10}
+            zoom={this.props.zoom}
+            center={this.props.center}
             defaultCenter={LOS_ANGELES_CENTER}
             yesIWantToUseGoogleMapApiInternals
-            onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps, places)}
+            onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps, placeBounds)}
 
           >
             
