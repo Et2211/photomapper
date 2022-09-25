@@ -11,30 +11,30 @@ import LOS_ANGELES_CENTER from './../const/la_center';
 import NewPhotoMarker from './NewPhotoMarker';
 import NewPhotoMarkerBlank from './NewPhotoMarkerBlank';
 
-import {useSelector} from 'react-redux'
+import { useSelector } from 'react-redux'
 import GoogleMap from './GoogleMap';
 
 
 
-function AddPhotos({refreshPlaces}) {
+function AddPhotos({ refreshPlaces }) {
 	const places = useSelector(state => state.places.places)
 
 	const resizeFile = (file) =>
-  	new Promise((resolve) => {
-    	Resizer.imageFileResizer(
-      	file,
-      	500,
-      	500,
-      	"JPEG",
-      	100,
-      	0,
-      	(uri) => {
-      	  resolve(uri);
-      	},
-      	"base64"
-    	);
-  	}
-	);
+		new Promise((resolve) => {
+			Resizer.imageFileResizer(
+				file,
+				500,
+				500,
+				"JPEG",
+				100,
+				0,
+				(uri) => {
+					resolve(uri);
+				},
+				"base64"
+			);
+		}
+		);
 
 	const [photoName, setPhotoName] = useState('')
 	const [photo, setPhoto] = useState('')
@@ -49,17 +49,25 @@ function AddPhotos({refreshPlaces}) {
 		setPhoto(files)
 		if (files) {
 			const image = await resizeFile(files);
-	
+
 			postData('/add-photo', {
 				photoData: image,
 				fileName: files.name,
-				fileType: files.type, 
-				username: username, 
-				photoName: photoName, 
-				lat: lat, 
+				fileType: files.type,
+				username: username,
+				photoName: photoName,
+				lat: lat,
 				lng: lng
-			}).then(()=>refreshPlaces())
-			
+			}).then(() => {
+				setPhotoName('')
+				setPhoto('')
+				setUsername('')
+				setLng('')
+				setLat('')
+
+				refreshPlaces()
+			})
+
 
 
 
@@ -90,92 +98,69 @@ function AddPhotos({refreshPlaces}) {
 
 
 			<div className="modal fade" id="addPhotoModal" tabIndex="-1" aria-labelledby="addPhotoModalLabel" aria-hidden="true">
-			  <div className="modal-dialog modal-lg modal-dialog-centered modal-fullscreen-lg-down">
-			    <div className="modal-content">
-			      <div className="modal-header">
-			        <h5 className="modal-title" id="addPhotoModalLabel">Add to the map!</h5>
-			        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			      </div>
-			      <div className="modal-body">
-						<div className='row justify-content-end'>
-								<div className='col-6'>
-									<label for="fname" className='me-3'>Your name: </label>
+				<div className="modal-dialog modal-lg modal-dialog-centered modal-fullscreen-lg-down">
+					<div className="modal-content">
+						<div className="modal-header">
+							<h5 className="modal-title" id="addPhotoModalLabel">Add to the map!</h5>
+							<button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div className="modal-body">
+							<div className='row justify-content-center'>
+								<div className='col-6 col-md-3 text-start'>
+									<label for="fname" className=''>Your name: </label>
+									<input type="text" className='form-control' id="fname" name="fname" value={username} onChange={(e) => setUsername(e.target.value)} />
 								</div>
-								<div className='col-6'>
-  								<input type="text" id="fname" name="fname" value={username} onChange={(e)=>setUsername(e.target.value)}/>
-								</div>
-							</div>
-							<div className='row justify-content-end'>
-								<div className='col-6'>
-									<label for="fname" className='me-3'>Photo name: </label>
-								</div>
-								<div className='col-6'>
-  								<input type="text" id="fname" name="fname" value={photoName} onChange={(e)=>setPhotoName(e.target.value)}/>
-								</div>
-							</div>
-							<div className='row'>
-								<div className='col-6'>
-									<label for="fname" className='me-3'>lng: </label>
-								</div>
-								<div className='col-6'>
-  								<input type="number" id="lng" name="fname" value={lng} onChange={(e)=>setLng(e.target.value)}/>
-								</div>
-							</div>
-							<div className='row'>
-								<div className='col-6'>
-									<label for="fname" className='me-3'>lat: </label>
-								</div>
-								<div className='col-6'>
-  								<input type="number" id="lat" name="fname" value={lat} onChange={(e)=>setLat(e.target.value)}/>
+								<div className='col-6 col-md-3 text-start'>
+									<label for="fname">Photo name: </label>
+									<input type="text" className='form-control' id="fname" name="fname" value={photoName} onChange={(e) => setPhotoName(e.target.value)} />
 								</div>
 							</div>
 
+							<div className='modal-mapContainer my-3'>
+								{console.log('RENDERING')}
+								{!isEmpty(places) && (
+									<GoogleMap
+										defaultCenter={LOS_ANGELES_CENTER}
+										defaultZoom={3}
+										yesIWantToUseGoogleMapApiInternals
+										onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps, places)}
+										onClick={(e) => setCoordinates(e)}
+									>
+										{lng != '' && lat != '' &&
 
-							<div className='modal-mapContainer'>
-							{console.log('RENDERING')}
-							{!isEmpty(places) && (
-							<GoogleMap
-								defaultCenter={LOS_ANGELES_CENTER}
-								defaultZoom={3}
-								yesIWantToUseGoogleMapApiInternals
-								onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps, places)}
-								onClick ={(e)=>setCoordinates(e)}
-								>
-            					{lng != '' && lat != '' && 
+											photo != '' ?
+											<NewPhotoMarker
+												text={username}
+												lat={lat}
+												lng={lng}
+												photo={photo}
+												photoName={photoName}
+												username={username}
+											/>
+											:
+											<NewPhotoMarkerBlank
+												text={username}
+												lat={lat}
+												lng={lng}
+												photo={photo}
+												photoName={photoName}
+												username={username}
+											/>
+										}
 
-									photo != '' ?
-									<NewPhotoMarker 
-                					text={username}
-                					lat={lat}
-                					lng={lng}
-                					photo={photo}
-                					photoName={photoName}
-                					username={username}
-                					/>
-									:
-									<NewPhotoMarkerBlank  
-                					text={username}
-                					lat={lat}
-                					lng={lng}
-                					photo={photo}
-                					photoName={photoName}
-                					username={username}
-                					/>
-								}
-    
-    						</GoogleMap>
-							)}
+									</GoogleMap>
+								)}
 							</div>
 
 
-						<input type='file' name='files[]' multiple accept="image/*" id='photoUpload' onChange={()=>loadFile()}/>
-			      </div>
-			      <div className="modal-footer">
-			        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-			        <button type="button" className="btn btn-primary" onClick={()=>savetoAWS()} data-bs-dismiss="modal">Add photo</button>
-			      </div>
-			    </div>
-			  </div>
+							<input type='file' name='files[]' multiple accept="image/*" id='photoUpload' onChange={() => loadFile()} />
+						</div>
+						<div className="modal-footer">
+							<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+							<button type="button" className="btn btn-primary" onClick={() => savetoAWS()} data-bs-dismiss="modal">Add photo</button>
+						</div>
+					</div>
+				</div>
 			</div>
 		</>
 	)
