@@ -128,7 +128,7 @@ function AddPhotos({ refreshPlaces }) {
 									>
 										{lng != '' && lat != '' &&
 
-											photo != '' ?
+											(photo != '' ?
 											<NewPhotoMarker
 												text={username}
 												lat={lat}
@@ -145,15 +145,17 @@ function AddPhotos({ refreshPlaces }) {
 												photo={photo}
 												photoName={photoName}
 												username={username}
-											/>
+											/>)
 										}
 
 									</GoogleMap>
 								)}
 							</div>
 
+							<input type='file' className='form-control-file' name='files[]' multiple accept="image/*" id='photoUpload' onChange={() => loadFile()} />
+							<label for="photoUpload" class="btn-2">upload</label>
 
-							<input type='file' name='files[]' multiple accept="image/*" id='photoUpload' onChange={() => loadFile()} />
+
 						</div>
 						<div className="modal-footer">
 							<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
