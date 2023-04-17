@@ -22,7 +22,6 @@ const getMapBounds = (map, maps, places) => {
   
   // Fit map to its bounds after the api is loaded
   const apiIsLoaded = (map, maps, places) => {
-    console.log(places)
     // Get bounds by our places
     const bounds = getMapBounds(map, maps, places);
     // Fit map to bounds
