@@ -25,4 +25,5 @@ yarn-error.log*
 build-storybook.log*
 
 .env.*
+.env*
 config.js
