@@ -6,6 +6,7 @@ const { response } = require('express');
 const app = express();
 
 require('dotenv').config()
+console.log(process.env)
 
 const keys = {
   region: process.env.AWS_REGION,
