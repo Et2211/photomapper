@@ -11,8 +11,6 @@ import useWindowDimensions from './hooks/useWindowDimensions';
 import {getData, postData} from './api'
 
 
-import fs from 'fs'
-
 import {useDispatch, useSelector} from 'react-redux'
 import Header from './components/Header';
 
@@ -42,7 +40,6 @@ function App() {
 
 
   const showOnMap = (place) => {
-    console.log(place)
     setCenter([place.lat, place.lng])
     setZoom(12)
     setMobileNav(1)

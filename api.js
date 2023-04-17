@@ -5,11 +5,14 @@ var bodyParser = require('body-parser');
 const { response } = require('express');
 const app = express();
 
+require('dotenv').config()
+
 const keys = {
-  region: 'eu-west-2',
-  secretAccessKey: 'qrAUU6QJCfdUds7HycKkVP4My3znwhdM53GU9rgp',
-  accessKeyId: 'AKIA3NR22ECEJVV2CTLM'
+  region: process.env.AWS_REGION,
+  secretAccessKey: process.env.AWS_SECRET_KEY,
+  accessKeyId: process.env.AWS_ACCESS_KEY
 }
+
 
 
 const configuration = {
@@ -82,7 +85,6 @@ const putData = (tableName , data, callback) => {
       TableName: tableName,
       Item: data,
   }
-  console.log(params)
   
   documentClient.put(params, function (err, data) {
       if (err) {

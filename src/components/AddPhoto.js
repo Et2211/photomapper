@@ -68,13 +68,8 @@ function AddPhotos({ refreshPlaces }) {
 				refreshPlaces()
 			})
 
-
-
-
-
 		} else {
 			setError(1)
-			console.log('error')
 		}
 	}
 
@@ -84,7 +79,6 @@ function AddPhotos({ refreshPlaces }) {
 	}
 
 	const loadFile = () => {
-		console.log('loadingh')
 		const files = document.getElementById('photoUpload').files[0];
 		setPhoto(URL.createObjectURL(files))
 	}
