@@ -128,7 +128,9 @@ app.get('/data', function (req, res) {
 
 app.post('/add-photo', async function (req, res) {
   const base64Data = new Buffer.from(req.body.photoData.replace(/^data:image\/\w+;base64,/, ""), 'base64');
-  uploadToS3(base64Data, req.body.fileName, 'image/jpeg', req.body.username, req.body.photoName, req.body.lat, req.body.lng, ()=>{res.status(200).json({status:"ok"})})
+  uploadToS3(base64Data, req.body.fileName, 'image/jpeg', req.body.username, req.body.photoName, req.body.lat, req.body.lng, ()=>{
+    res.status(200).json({status:"ok"})
+  })
 });
 
 app.listen(process.env.PORT || 9000, function(){
