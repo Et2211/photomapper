@@ -1,22 +1,23 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { Photo, UploadPayload } from '@/types';
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+
+import type { Photo, UploadPayload } from "@/types";
 
 export const photosApi = createApi({
-  reducerPath: 'photosApi',
-  baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
-  tagTypes: ['Photos'],
+  reducerPath: "photosApi",
+  baseQuery: fetchBaseQuery({ baseUrl: "/api" }),
+  tagTypes: ["Photos"],
   endpoints: (builder) => ({
     getPhotos: builder.query<Photo[], void>({
-      query: () => '/photos',
-      providesTags: ['Photos'],
+      query: () => "/photos",
+      providesTags: ["Photos"],
     }),
     uploadPhoto: builder.mutation<Photo, UploadPayload>({
       query: (payload) => ({
-        url: '/upload',
-        method: 'POST',
+        url: "/upload",
+        method: "POST",
         body: payload,
       }),
-      invalidatesTags: ['Photos'],
+      invalidatesTags: ["Photos"],
     }),
   }),
 });

@@ -1,9 +1,10 @@
-'use client';
+"use client";
 
-import { useGetPhotosQuery } from '@/store/photosApi';
-import PhotoCard from './PhotoCard';
+import { useGetPhotosQuery } from "@/store/photosApi";
 
-export default function PhotoFeed() {
+import PhotoCard from "./PhotoCard";
+
+const PhotoFeed = () => {
   const { data: photos = [], isLoading, isError } = useGetPhotosQuery();
 
   if (isLoading) {
@@ -38,4 +39,6 @@ export default function PhotoFeed() {
       ))}
     </div>
   );
-}
+};
+
+export default PhotoFeed;

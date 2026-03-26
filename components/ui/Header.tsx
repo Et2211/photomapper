@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useAppDispatch } from '@/store';
-import { setUploadOpen } from '@/store/uiSlice';
-import { useGetPhotosQuery } from '@/store/photosApi';
+import { useAppDispatch } from "@/store";
+import { useGetPhotosQuery } from "@/store/photosApi";
+import { setUploadOpen } from "@/store/uiSlice";
 
-export default function Header() {
+const Header = () => {
   const dispatch = useAppDispatch();
   const { refetch } = useGetPhotosQuery();
 
@@ -27,4 +27,6 @@ export default function Header() {
       </div>
     </header>
   );
-}
+};
+
+export default Header;

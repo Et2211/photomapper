@@ -1,25 +1,25 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 interface UiState {
   focusedPhotoId: string | null;
-  mobileTab: 'map' | 'feed';
+  mobileTab: "map" | "feed";
   isUploadOpen: boolean;
 }
 
 const initialState: UiState = {
   focusedPhotoId: null,
-  mobileTab: 'map',
+  mobileTab: "map",
   isUploadOpen: false,
 };
 
 const uiSlice = createSlice({
-  name: 'ui',
+  name: "ui",
   initialState,
   reducers: {
     setFocusedPhoto(state, action: PayloadAction<string | null>) {
       state.focusedPhotoId = action.payload;
     },
-    setMobileTab(state, action: PayloadAction<'map' | 'feed'>) {
+    setMobileTab(state, action: PayloadAction<"map" | "feed">) {
       state.mobileTab = action.payload;
     },
     setUploadOpen(state, action: PayloadAction<boolean>) {

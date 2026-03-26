@@ -1,12 +1,15 @@
-import { NextResponse } from 'next/server';
-import { getPhotos } from '@/lib/photos';
+import { NextResponse } from "next/server";
 
-export async function GET() {
+import { getPhotos } from "@/lib/photos";
+
+export const GET = async () => {
   try {
     const photos = await getPhotos();
     return NextResponse.json(photos);
   } catch (error) {
-    console.error('Failed to fetch photos:', error);
-    return NextResponse.json({ error: 'Failed to fetch photos' }, { status: 500 });
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Failed to fetch photos" },
+      { status: 500 }
+    );
   }
-}
+};
