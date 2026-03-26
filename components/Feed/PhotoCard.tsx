@@ -1,26 +1,38 @@
-'use client';
+"use client";
 
-import { useAppDispatch } from '@/store';
-import { setFocusedPhoto, setMobileTab } from '@/store/uiSlice';
-import type { Photo } from '@/types';
+import { useAppDispatch } from "@/store";
+import { setFocusedPhoto, setMobileTab } from "@/store/uiSlice";
+import type { Photo } from "@/types";
 
-function timeAgo(dateStr: string): string {
+const timeAgo = (dateStr: string): string => {
   const seconds = Math.floor((Date.now() - new Date(dateStr).getTime()) / 1000);
-  if (seconds < 60) return 'just now';
+
+  if (seconds < 60) {
+    return "just now";
+  }
+
   const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) return `${minutes}m ago`;
+
+  if (minutes < 60) {
+    return `${minutes}m ago`;
+  }
+
   const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours}h ago`;
+
+  if (hours < 24) {
+    return `${hours}h ago`;
+  }
+
   const days = Math.floor(hours / 24);
   return `${days}d ago`;
-}
+};
 
-export default function PhotoCard({ photo }: { photo: Photo }) {
+const PhotoCard = ({ photo }: { photo: Photo }) => {
   const dispatch = useAppDispatch();
 
   const handleShowOnMap = () => {
     dispatch(setFocusedPhoto(photo.id));
-    dispatch(setMobileTab('map'));
+    dispatch(setMobileTab("map"));
   };
 
   return (
@@ -47,4 +59,6 @@ export default function PhotoCard({ photo }: { photo: Photo }) {
       </div>
     </div>
   );
-}
+};
+
+export default PhotoCard;

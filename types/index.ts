@@ -13,6 +13,6 @@ export interface UploadPayload {
   photoName: string;
   lat: number;
   lng: number;
-  imageData: string; // base64 data URL
+  imageData: string;
   fileName: string;
 }

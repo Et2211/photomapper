@@ -1,15 +1,17 @@
-'use client';
+"use client";
 
-import { useEffect, useState, useCallback } from 'react';
-import Map, { Marker, Popup } from 'react-map-gl/maplibre';
-import type { MapLayerMouseEvent } from 'maplibre-gl';
-import 'maplibre-gl/dist/maplibre-gl.css';
-import { useAppSelector, useAppDispatch } from '@/store';
-import { setFocusedPhoto } from '@/store/uiSlice';
-import PhotoMarker from './PhotoMarker';
-import type { Photo } from '@/types';
+import { useCallback, useEffect, useState } from "react";
+import type { MapLayerMouseEvent } from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
+import Map, { Marker, Popup } from "react-map-gl/maplibre";
 
-const MAP_STYLE = 'https://tiles.openfreemap.org/styles/liberty';
+import { useAppDispatch, useAppSelector } from "@/store";
+import { setFocusedPhoto } from "@/store/uiSlice";
+import type { Photo } from "@/types";
+
+import PhotoMarker from "./PhotoMarker";
+
+const MAP_STYLE = "https://tiles.openfreemap.org/styles/liberty";
 const DEFAULT_VIEW = { latitude: 34.0522, longitude: -118.2437, zoom: 10 };
 
 interface MapViewProps {
@@ -19,20 +21,24 @@ interface MapViewProps {
   pickedLocation?: { lat: number; lng: number } | null;
 }
 
-export default function MapView({
+const MapView = ({
   photos,
   pickingLocation = false,
   onLocationPick,
   pickedLocation,
-}: MapViewProps) {
+}: MapViewProps) => {
   const dispatch = useAppDispatch();
   const focusedPhotoId = useAppSelector((state) => state.ui.focusedPhotoId);
   const [viewState, setViewState] = useState(DEFAULT_VIEW);
   const [popupPhoto, setPopupPhoto] = useState<Photo | null>(null);
 
   useEffect(() => {
-    if (!focusedPhotoId) return;
+    if (!focusedPhotoId) {
+      return;
+    }
+
     const photo = photos.find((p) => p.id === focusedPhotoId);
+
     if (photo) {
       setViewState((prev) => ({ ...prev, latitude: photo.lat, longitude: photo.lng, zoom: 15 }));
       setPopupPhoto(photo);
@@ -55,8 +61,8 @@ export default function MapView({
       onMove={(e) => setViewState(e.viewState)}
       mapStyle={MAP_STYLE}
       onClick={handleClick}
-      cursor={pickingLocation ? 'crosshair' : 'auto'}
-      style={{ width: '100%', height: '100%' }}
+      cursor={pickingLocation ? "crosshair" : "auto"}
+      style={{ width: "100%", height: "100%" }}
     >
       {photos.map((photo) => (
         <PhotoMarker key={photo.id} photo={photo} onClick={() => setPopupPhoto(photo)} />
@@ -89,4 +95,6 @@ export default function MapView({
       )}
     </Map>
   );
-}
+};
+
+export default MapView;

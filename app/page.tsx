@@ -1,16 +1,17 @@
-'use client';
+"use client";
 
-import dynamic from 'next/dynamic';
-import { useAppSelector } from '@/store';
-import { useGetPhotosQuery } from '@/store/photosApi';
-import Header from '@/components/ui/Header';
-import BottomNav from '@/components/ui/BottomNav';
-import PhotoFeed from '@/components/Feed/PhotoFeed';
-import UploadModal from '@/components/Upload/UploadModal';
+import dynamic from "next/dynamic";
 
-const MapView = dynamic(() => import('@/components/Map/MapView'), { ssr: false });
+import { useAppSelector } from "@/store";
+import { useGetPhotosQuery } from "@/store/photosApi";
+import BottomNav from "@/components/ui/BottomNav";
+import Header from "@/components/ui/Header";
+import PhotoFeed from "@/components/Feed/PhotoFeed";
+import UploadModal from "@/components/Upload/UploadModal";
 
-export default function Home() {
+const MapView = dynamic(() => import("@/components/Map/MapView"), { ssr: false });
+
+const Home = () => {
   const { data: photos = [] } = useGetPhotosQuery();
   const { mobileTab, isUploadOpen } = useAppSelector((state) => state.ui);
 
@@ -30,7 +31,7 @@ export default function Home() {
 
       {/* Mobile: toggled by bottom nav */}
       <div className="flex md:hidden flex-1 overflow-hidden">
-        {mobileTab === 'feed' ? (
+        {mobileTab === "feed" ? (
           <div className="flex-1 overflow-hidden">
             <PhotoFeed />
           </div>
@@ -46,4 +47,6 @@ export default function Home() {
       {isUploadOpen && <UploadModal />}
     </div>
   );
-}
+};
+
+export default Home;

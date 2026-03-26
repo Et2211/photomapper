@@ -1,7 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { useDispatch, useSelector, type TypedUseSelectorHook } from 'react-redux';
-import { photosApi } from './photosApi';
-import uiReducer from './uiSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import { useDispatch, useSelector, type TypedUseSelectorHook } from "react-redux";
+
+import { photosApi } from "./photosApi";
+import uiReducer from "./uiSlice";
 
 export const store = configureStore({
   reducer: {

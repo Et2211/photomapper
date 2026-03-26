@@ -1,13 +1,15 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import StoreProvider from '@/store/StoreProvider';
-import './globals.css';
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 
-const inter = Inter({ subsets: ['latin'] });
+import StoreProvider from "@/store/StoreProvider";
+
+import "./globals.css";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Photomapper',
-  description: 'Pin photos to locations on a map',
+  title: "Photomapper",
+  description: "Pin photos to locations on a map",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
