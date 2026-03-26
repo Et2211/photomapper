@@ -12,6 +12,10 @@
 /build
 /storybook-static
 
+# Next.js
+/.next/
+/out/
+
 # misc
 .DS_Store
 .env.local
