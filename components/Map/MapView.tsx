@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import Map, { Marker, Popup } from 'react-map-gl/maplibre';
-import type { MapLayerMouseEvent } from 'react-map-gl';
+import type { MapLayerMouseEvent } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { useAppSelector, useAppDispatch } from '@/store';
 import { setFocusedPhoto } from '@/store/uiSlice';
