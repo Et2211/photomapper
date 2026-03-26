@@ -1,5 +1,6 @@
 export interface Photo {
   id: string;
+  user_id: string | null;
   username: string;
   photo_name: string;
   lat: number;

@@ -7,14 +7,13 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { resizeImage } from "@/lib/image";
-import { useAppDispatch } from "@/store";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { useUploadPhotoMutation } from "@/store/photosApi";
 import { setUploadOpen } from "@/store/uiSlice";
 
 const MapView = dynamic(() => import("@/components/Map/MapView"), { ssr: false });
 
 const schema = z.object({
-  username: z.string().min(1, "Username is required").max(50),
   photoName: z.string().min(1, "Photo name is required").max(100),
 });
 
@@ -22,6 +21,7 @@ type FormData = z.infer<typeof schema>;
 
 const UploadModal = () => {
   const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.auth.user);
   const [uploadPhoto, { isLoading }] = useUploadPhotoMutation();
   const [pickedLocation, setPickedLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [imageData, setImageData] = useState<string | null>(null);
@@ -30,12 +30,9 @@ const UploadModal = () => {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>({
+    resolver: zodResolver(schema),
+  });
 
   const handleClose = () => {
     reset();
@@ -66,6 +63,11 @@ const UploadModal = () => {
   }, []);
 
   const onSubmit = async (data: FormData) => {
+    if (!user) {
+      setSubmitError("You must be logged in to upload photos.");
+      return;
+    }
+
     if (!pickedLocation) {
       setSubmitError("Please click the map to select a location.");
       return;
@@ -80,7 +82,7 @@ const UploadModal = () => {
 
     try {
       await uploadPhoto({
-        username: data.username,
+        username: user.email ?? user.id,
         photoName: data.photoName,
         lat: pickedLocation.lat,
         lng: pickedLocation.lng,
@@ -89,7 +91,7 @@ const UploadModal = () => {
       }).unwrap();
       handleClose();
     } catch {
-      setSubmitError("Upload failed. Make sure Supabase is configured and try again.");
+      setSubmitError("Upload failed. Please try again.");
     }
   };
 
@@ -107,17 +109,11 @@ const UploadModal = () => {
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="p-4 flex flex-col gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Username</label>
-            <input
-              {...register("username")}
-              className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="your_username"
-            />
-            {errors.username && (
-              <p className="text-red-500 text-xs mt-1">{errors.username.message}</p>
-            )}
-          </div>
+          {user && (
+            <p className="text-sm text-gray-500">
+              Uploading as <span className="font-medium text-gray-700">{user.email}</span>
+            </p>
+          )}
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Photo Name</label>
@@ -138,7 +134,11 @@ const UploadModal = () => {
               className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-blue-400 transition-colors"
             >
               {imagePreview ? (
-                <img src={imagePreview} alt="Preview" className="w-32 h-32 object-cover rounded-lg mx-auto" />
+                <img
+                  src={imagePreview}
+                  alt="Preview"
+                  className="w-32 h-32 object-cover rounded-lg mx-auto"
+                />
               ) : (
                 <p className="text-gray-400 text-sm py-4">Click to select an image</p>
               )}

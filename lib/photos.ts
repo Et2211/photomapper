@@ -5,6 +5,7 @@ import type { Photo } from "@/types";
 const MOCK_PHOTOS: Photo[] = [
   {
     id: "mock-1",
+    user_id: null,
     username: "demo_user",
     photo_name: "Griffith Observatory",
     lat: 34.1184,
@@ -14,6 +15,7 @@ const MOCK_PHOTOS: Photo[] = [
   },
   {
     id: "mock-2",
+    user_id: null,
     username: "photo_walker",
     photo_name: "Santa Monica Pier",
     lat: 34.0082,
@@ -23,6 +25,7 @@ const MOCK_PHOTOS: Photo[] = [
   },
   {
     id: "mock-3",
+    user_id: null,
     username: "la_explorer",
     photo_name: "Venice Beach",
     lat: 33.985,
@@ -32,6 +35,7 @@ const MOCK_PHOTOS: Photo[] = [
   },
   {
     id: "mock-4",
+    user_id: null,
     username: "cityshots",
     photo_name: "Downtown LA",
     lat: 34.0534,
