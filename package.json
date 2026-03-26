@@ -1,70 +1,50 @@
 {
-  "name": "google-map-react-examples",
-  "homepage": "/",
+  "name": "photomapper",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.11.0",
-    "@testing-library/react": "^10.4.5",
-    "@testing-library/user-event": "^12.0.11",
-    "aws-sdk": "^2.1199.0",
-    "body-parser": "^1.20.0",
-    "bootstrap": "^5.2.0",
-    "date-fns": "^2.29.3",
-    "dotenv": "^16.0.3",
-    "dynamodb-doc": "^1.0.0",
-    "express": "^4.18.1",
-    "google-map-react": "^2.0.1",
-    "javascript-time-ago": "^2.5.7",
-    "lodash": "^4.17.21",
-    "lodash.isempty": "^4.4.0",
-    "nodemon": "^2.0.20",
-    "prop-types": "^15.6.1",
-    "react": "^16.13.1",
-    "react-bootstrap": "^2.5.0",
-    "react-dom": "^16.13.1",
-    "react-image-file-resizer": "^0.4.8",
-    "react-redux": "^8.0.2",
-    "react-scripts": "3.4.1",
-    "redux": "^4.2.0",
-    "redux-immutable-state-invariant": "^2.1.0",
-    "styled-components": "^5.1.1"
-  },
   "scripts": {
-    "lint": "eslint src",
-    "dev": "react-scripts start",
-    "start": "node api.js",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "storybook": "start-storybook -p 9009 -s public",
-    "chromatic": "npx chromatic --project-token=2mchcgpjqg2"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^3.3.4",
+    "@reduxjs/toolkit": "^2.11.2",
+    "@supabase/supabase-js": "^2.100.1",
+    "maplibre-gl": "^5.21.1",
+    "next": "16.2.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-hook-form": "^7.51.0",
+    "react-map-gl": "^8.1.0",
+    "react-redux": "^9.2.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.1",
-    "chromatic": "^5.0.0",
-    "eslint-config-airbnb": "^18.2.0",
-    "eslint-plugin-import": "^2.9.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.7.0",
-    "gh-pages": "^3.2.3"
+    "@eslint/eslintrc": "^3.3.5",
+    "@tailwindcss/postcss": "^4.2.2",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^9.39.4",
+    "eslint-config-next": "16.2.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-react": "^7.37.5",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "postcss": "^8.5.8",
+    "prettier": "^3.8.1",
+    "tailwindcss": "^4.2.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.57.2"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+  "lint-staged": {
+    "**/*.{ts,tsx,js,mjs}": [
+      "eslint --fix"
     ]
-  },
-  "engines": {
-    "npm": "8.5.0",
-    "node": "16.14.2"
   }
 }

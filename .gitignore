@@ -12,6 +12,13 @@
 /build
 /storybook-static
 
+# Next.js
+/.next/
+/out/
+
+# TypeScript
+*.tsbuildinfo
+
 # misc
 .DS_Store
 .env.local
