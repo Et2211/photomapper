@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector, type TypedUseSelectorHook } from "react-redux";
 
+import authReducer from "./authSlice";
 import { photosApi } from "./photosApi";
 import uiReducer from "./uiSlice";
 
 export const store = configureStore({
   reducer: {
     [photosApi.reducerPath]: photosApi.reducer,
+    auth: authReducer,
     ui: uiReducer,
   },
   middleware: (getDefaultMiddleware) =>
