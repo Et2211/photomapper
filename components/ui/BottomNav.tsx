@@ -13,10 +13,17 @@ const BottomNav = () => {
         <button
           onClick={() => dispatch(setMobileTab("map"))}
           className={`flex-1 flex flex-col items-center justify-center gap-1 text-xs transition-colors ${
-            mobileTab === "map" ? "text-blue-400" : "text-gray-400 hover:text-gray-200"
+            mobileTab === "map"
+              ? "text-blue-400"
+              : "text-gray-400 hover:text-gray-200"
           }`}
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -29,10 +36,17 @@ const BottomNav = () => {
         <button
           onClick={() => dispatch(setMobileTab("feed"))}
           className={`flex-1 flex flex-col items-center justify-center gap-1 text-xs transition-colors ${
-            mobileTab === "feed" ? "text-blue-400" : "text-gray-400 hover:text-gray-200"
+            mobileTab === "feed"
+              ? "text-blue-400"
+              : "text-gray-400 hover:text-gray-200"
           }`}
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
