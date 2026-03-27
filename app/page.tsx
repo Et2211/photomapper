@@ -10,11 +10,15 @@ import UploadModal from "@/components/Upload/UploadModal";
 import { useAppSelector } from "@/store";
 import { useGetPhotosQuery } from "@/store/photosApi";
 
-const MapView = dynamic(() => import("@/components/Map/MapView"), { ssr: false });
+const MapView = dynamic(() => import("@/components/Map/MapView"), {
+  ssr: false,
+});
 
 const Home = () => {
   const { data: photos = [] } = useGetPhotosQuery();
-  const { mobileTab, isUploadOpen, isAuthOpen } = useAppSelector((state) => state.ui);
+  const { mobileTab, isUploadOpen, isAuthOpen } = useAppSelector(
+    (state) => state.ui,
+  );
 
   return (
     <div className="flex flex-col h-dvh">
