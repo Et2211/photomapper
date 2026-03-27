@@ -1,16 +1,17 @@
 "use client";
 
-import { useGetPhotosQuery } from "@/store/photosApi";
 
-import PhotoCard from "./PhotoCard";
+import Spinner from "@/components/atoms/Spinner";
+import PhotoCard from "@/components/molecules/PhotoCard";
+import { useGetPhotosQuery } from "@/store/photosApi";
 
 const PhotoFeed = () => {
   const { data: photos = [], isLoading, isError } = useGetPhotosQuery();
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-full text-gray-500 text-sm">
-        Loading photos...
+      <div className="flex items-center justify-center h-full">
+        <Spinner />
       </div>
     );
   }
