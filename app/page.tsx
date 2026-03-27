@@ -1,19 +1,14 @@
 "use client";
 
-import dynamic from "next/dynamic";
-
+import AuthModal from "@/components/organisms/AuthModal";
+import BottomNav from "@/components/organisms/BottomNav";
+import Header from "@/components/organisms/Header";
+import MapView from "@/components/organisms/MapView";
+import PhotoFeed from "@/components/organisms/PhotoFeed";
+import UploadModal from "@/components/organisms/UploadModal";
 import { useAppSelector } from "@/store";
-import { useGetPhotosQuery } from "@/store/photosApi";
-import AuthModal from "@/components/Auth/AuthModal";
-import BottomNav from "@/components/ui/BottomNav";
-import Header from "@/components/ui/Header";
-import PhotoFeed from "@/components/Feed/PhotoFeed";
-import UploadModal from "@/components/Upload/UploadModal";
-
-const MapView = dynamic(() => import("@/components/Map/MapView"), { ssr: false });
 
 const Home = () => {
-  const { data: photos = [] } = useGetPhotosQuery();
   const { mobileTab, isUploadOpen, isAuthOpen } = useAppSelector((state) => state.ui);
 
   return (
@@ -26,7 +21,7 @@ const Home = () => {
           <PhotoFeed />
         </aside>
         <main className="flex-1">
-          <MapView photos={photos} />
+          <MapView />
         </main>
       </div>
 
@@ -38,15 +33,15 @@ const Home = () => {
           </div>
         ) : (
           <div className="flex-1">
-            <MapView photos={photos} />
+            <MapView />
           </div>
         )}
       </div>
 
       <BottomNav />
 
-      {isUploadOpen && <UploadModal />}
-      {isAuthOpen && <AuthModal />}
+      <UploadModal isOpen={isUploadOpen} />
+      <AuthModal isOpen={isAuthOpen} />
     </div>
   );
 };

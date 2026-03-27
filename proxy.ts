@@ -3,7 +3,7 @@ import { type NextRequest, NextResponse } from "next/server";
 
 export const proxy = async (request: NextRequest) => {
   // Skip session refresh if Supabase is not configured
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY) {
     return NextResponse.next({ request });
   }
 
@@ -11,7 +11,7 @@ export const proxy = async (request: NextRequest) => {
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY,
     {
       cookies: {
         getAll: () => request.cookies.getAll(),

@@ -20,12 +20,7 @@ const PhotoMarker = ({ photo, onClick }: PhotoMarkerProps) => (
     }}
   >
     <div className="w-10 h-10 rounded-full border-2 border-white shadow-lg overflow-hidden cursor-pointer hover:scale-110 transition-transform">
-      <img
-        src={photo.url}
-        alt={photo.photo_name}
-        className="w-full h-full object-cover"
-        draggable={false}
-      />
+      <img src={photo.url} alt={photo.photo_name} className="w-full h-full object-cover" draggable={false} />
     </div>
   </Marker>
 );

@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/SharkE/Development/**)",
+      "Bash(grep -n \"try\\\\|catch\" components/**/*.tsx store/**/*.tsx app/api/**/*.ts)",
+      "Bash(grep -n \"!isConfigured\\\\|if \\(!.*\\)\" lib/*.ts)",
+      "Bash(code --list-extensions)",
+      "Bash(npx eslint:*)",
+      "Bash(code --list-extensions --show-versions)",
+      "Bash(grep -v \"^$\")"
+    ]
+  }
+}
