@@ -66,6 +66,12 @@ const AuthModal = () => {
     }
   };
 
+  const toggleMode = () => {
+    setMode((prev) => (prev === "login" ? "signup" : "login"));
+    setError(null);
+    setSuccessMessage(null);
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
       <div className="bg-white rounded-xl shadow-2xl w-full max-w-sm">
@@ -83,9 +89,12 @@ const AuthModal = () => {
 
         <form onSubmit={handleSubmit(onSubmit)} className="p-4 flex flex-col gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <label htmlFor="auth-email" className="block text-sm font-medium text-gray-700 mb-1">
+              Email
+            </label>
             <input
               {...register("email")}
+              id="auth-email"
               type="email"
               autoComplete="email"
               className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -97,9 +106,12 @@ const AuthModal = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <label htmlFor="auth-password" className="block text-sm font-medium text-gray-700 mb-1">
+              Password
+            </label>
             <input
               {...register("password")}
+              id="auth-password"
               type="password"
               autoComplete={mode === "login" ? "current-password" : "new-password"}
               className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -123,15 +135,7 @@ const AuthModal = () => {
 
           <p className="text-center text-sm text-gray-500">
             {mode === "login" ? "Don't have an account?" : "Already have an account?"}{" "}
-            <button
-              type="button"
-              onClick={() => {
-                setMode(mode === "login" ? "signup" : "login");
-                setError(null);
-                setSuccessMessage(null);
-              }}
-              className="text-blue-600 hover:underline font-medium"
-            >
+            <button type="button" onClick={toggleMode} className="text-blue-600 hover:underline font-medium">
               {mode === "login" ? "Sign up" : "Log in"}
             </button>
           </p>

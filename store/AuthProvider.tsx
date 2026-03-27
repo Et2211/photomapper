@@ -2,19 +2,26 @@
 
 import { useEffect } from "react";
 
-import { createClient } from "@/lib/supabase-browser";
+import { createClient, isConfigured } from "@/lib/supabase-browser";
 
 import { useAppDispatch } from "./index";
 import { setUser } from "./authSlice";
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useAppDispatch();
-  const supabase = createClient();
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
-      dispatch(setUser(data.user ?? null));
-    });
+    if (!isConfigured) {
+      dispatch(setUser(null));
+      return;
+    }
+
+    const supabase = createClient();
+
+    supabase.auth
+      .getUser()
+      .then(({ data }) => dispatch(setUser(data.user ?? null)))
+      .catch(() => dispatch(setUser(null)));
 
     const {
       data: { subscription },
@@ -23,7 +30,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     });
 
     return () => subscription.unsubscribe();
-  }, [dispatch, supabase.auth]);
+  }, [dispatch]);
 
   return <>{children}</>;
 };
