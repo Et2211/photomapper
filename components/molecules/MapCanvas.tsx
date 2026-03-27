@@ -18,7 +18,7 @@ interface FocusTarget {
   lat: number;
   lng: number;
   zoom: number;
-  photo: Photo;
+  photo?: Photo;
 }
 
 interface MapCanvasProps {
@@ -54,7 +54,9 @@ const MapCanvas = ({
       zoom: focusTarget.zoom,
     }));
 
-    setPopupPhoto(focusTarget.photo);
+    if (focusTarget.photo) {
+      setPopupPhoto(focusTarget.photo ?? null);
+    }
     onFocusConsumed?.();
   }, [focusTarget, onFocusConsumed]);
 

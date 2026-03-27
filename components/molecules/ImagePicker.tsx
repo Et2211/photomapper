@@ -2,11 +2,12 @@
 
 import { useCallback, useRef } from "react";
 
+import { extractGpsFromFile } from "@/lib/exif";
 import { resizeImage } from "@/lib/image";
 
 interface ImagePickerProps {
   preview: string | null;
-  onImageReady: (dataUrl: string, file: File) => void;
+  onImageReady: (dataUrl: string, file: File, gps: { lat: number; lng: number } | null) => void;
   onError?: (message: string) => void;
 }
 
@@ -22,8 +23,8 @@ const ImagePicker = ({ preview, onImageReady, onError }: ImagePickerProps) => {
       }
 
       try {
-        const resized = await resizeImage(file);
-        onImageReady(resized, file);
+        const [resized, gps] = await Promise.all([resizeImage(file), extractGpsFromFile(file)]);
+        onImageReady(resized, file, gps);
       } catch (err) {
         onError?.(
           err instanceof Error ? err.message : "Failed to process image.",
