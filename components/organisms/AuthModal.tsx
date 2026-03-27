@@ -8,6 +8,7 @@ import { z } from "zod";
 import Button from "@/components/atoms/Button";
 import Input from "@/components/atoms/Input";
 import FormField from "@/components/molecules/FormField";
+import GoogleSignInButton from "@/components/molecules/GoogleSignInButton";
 import ModalShell from "@/components/molecules/ModalShell";
 import { createClient } from "@/lib/supabase-browser";
 import { useAppDispatch } from "@/store";
@@ -110,6 +111,17 @@ const AuthModal = ({ isOpen }: AuthModalProps) => {
         <Button type="submit" variant="primary" size="md" disabled={isLoading} className="w-full">
           {isLoading ? "Please wait..." : mode === "login" ? "Log in" : "Create account"}
         </Button>
+
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-gray-200" />
+          </div>
+          <div className="relative flex justify-center text-xs text-gray-400">
+            <span className="bg-white px-2">or</span>
+          </div>
+        </div>
+
+        <GoogleSignInButton />
 
         <p className="text-center text-sm text-gray-500">
           {mode === "login" ? "Don't have an account?" : "Already have an account?"}{" "}
