@@ -31,6 +31,7 @@ const UploadModal = ({ isOpen }: UploadModalProps) => {
   const user = useAppSelector((state) => state.auth.user);
   const [uploadPhoto, { isLoading }] = useUploadPhotoMutation();
   const [pickedLocation, setPickedLocation] = useState<{ lat: number; lng: number } | null>(null);
+  const [exifLocation, setExifLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [imageData, setImageData] = useState<string | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -50,6 +51,7 @@ const UploadModal = ({ isOpen }: UploadModalProps) => {
   const handleClose = () => {
     reset();
     setPickedLocation(null);
+    setExifLocation(null);
     setImageData(null);
     setImagePreview(null);
     setImageFile(null);
@@ -63,6 +65,7 @@ const UploadModal = ({ isOpen }: UploadModalProps) => {
     setImageFile(file);
     if (gps && !pickedLocation) {
       setPickedLocation(gps);
+      setExifLocation(gps);
     }
   };
 
@@ -124,6 +127,7 @@ const UploadModal = ({ isOpen }: UploadModalProps) => {
         <LocationPicker
           pickedLocation={pickedLocation}
           onLocationPick={(lat, lng) => setPickedLocation({ lat, lng })}
+          focusLocation={exifLocation}
         />
 
         {submitError && <p className="text-red-500 text-sm">{submitError}</p>}
