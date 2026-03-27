@@ -1,3 +1,5 @@
+import type { SupabaseClient } from "@supabase/supabase-js";
+
 import type { Photo } from "@/types";
 
 import { isConfigured, supabase } from "./supabase";
@@ -63,13 +65,14 @@ export const getPhotos = async (): Promise<Photo[]> => {
 };
 
 export const insertPhoto = async (
-  photo: Omit<Photo, "id" | "created_at">
+  photo: Omit<Photo, "id" | "created_at">,
+  client: SupabaseClient
 ): Promise<Photo> => {
-  if (!isConfigured || !supabase) {
+  if (!isConfigured) {
     throw new Error("Supabase is not configured");
   }
 
-  const { data, error } = await supabase
+  const { data, error } = await client
     .from("photos")
     .insert([photo])
     .select()

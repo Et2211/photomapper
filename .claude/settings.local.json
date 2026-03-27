@@ -7,7 +7,8 @@
       "Bash(code --list-extensions)",
       "Bash(npx eslint:*)",
       "Bash(code --list-extensions --show-versions)",
-      "Bash(grep -v \"^$\")"
+      "Bash(grep -v \"^$\")",
+      "Bash(npx tsx -e \":*)"
     ]
   }
 }
