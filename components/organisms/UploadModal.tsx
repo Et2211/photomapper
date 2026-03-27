@@ -57,10 +57,13 @@ const UploadModal = ({ isOpen }: UploadModalProps) => {
     dispatch(setUploadOpen(false));
   };
 
-  const handleImageReady = (dataUrl: string, file: File) => {
+  const handleImageReady = (dataUrl: string, file: File, gps: { lat: number; lng: number } | null) => {
     setImageData(dataUrl);
     setImagePreview(dataUrl);
     setImageFile(file);
+    if (gps && !pickedLocation) {
+      setPickedLocation(gps);
+    }
   };
 
   const onSubmit = async (data: FormData) => {
