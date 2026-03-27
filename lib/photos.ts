@@ -1,6 +1,6 @@
-import { isConfigured, supabase } from "./supabase";
-
 import type { Photo } from "@/types";
+
+import { isConfigured, supabase } from "./supabase";
 
 const MOCK_PHOTOS: Photo[] = [
   {

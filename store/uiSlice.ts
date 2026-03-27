@@ -1,4 +1,4 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface UiState {
   focusedPhotoId: string | null;
@@ -33,5 +33,6 @@ const uiSlice = createSlice({
   },
 });
 
-export const { setFocusedPhoto, setMobileTab, setUploadOpen, setAuthOpen } = uiSlice.actions;
+export const { setFocusedPhoto, setMobileTab, setUploadOpen, setAuthOpen } =
+  uiSlice.actions;
 export default uiSlice.reducer;

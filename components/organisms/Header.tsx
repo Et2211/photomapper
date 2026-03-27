@@ -11,18 +11,8 @@ const Header = () => {
   const dispatch = useAppDispatch();
   const { refetch } = useGetPhotosQuery();
   const user = useAppSelector((state) => state.auth.user);
-  const supabase = createClient();
-
-  const handleAddPhoto = () => {
-    if (user) {
-      dispatch(setUploadOpen(true));
-    } else {
-      dispatch(setAuthOpen(true));
-    }
-  };
-
   const handleSignOut = async () => {
-    await supabase.auth.signOut();
+    await createClient().auth.signOut();
   };
 
   return (
@@ -42,7 +32,7 @@ const Header = () => {
           </>
         ) : (
           <>
-            <Button variant="primary" onClick={handleAddPhoto}>
+            <Button variant="primary" onClick={() => dispatch(setAuthOpen(true))}>
               + Add Photo
             </Button>
             <Button onClick={() => dispatch(setAuthOpen(true))}>Log in</Button>

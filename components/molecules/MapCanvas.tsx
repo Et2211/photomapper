@@ -8,7 +8,6 @@ import ReactMap, { Marker } from "react-map-gl/maplibre";
 import MapPin from "@/components/atoms/MapPin";
 import type { Photo } from "@/types";
 
-
 import PhotoMarker from "./PhotoMarker";
 import PhotoPopup from "./PhotoPopup";
 
@@ -54,7 +53,7 @@ const MapCanvas = ({
       longitude: focusTarget.lng,
       zoom: focusTarget.zoom,
     }));
-     
+
     setPopupPhoto(focusTarget.photo);
     onFocusConsumed?.();
   }, [focusTarget, onFocusConsumed]);
@@ -65,7 +64,7 @@ const MapCanvas = ({
         onLocationPick(e.lngLat.lat, e.lngLat.lng);
       }
     },
-    [pickingLocation, onLocationPick]
+    [pickingLocation, onLocationPick],
   );
 
   return (
@@ -78,16 +77,26 @@ const MapCanvas = ({
       style={{ width: "100%", height: "100%" }}
     >
       {photos.map((photo) => (
-        <PhotoMarker key={photo.id} photo={photo} onClick={() => setPopupPhoto(photo)} />
+        <PhotoMarker
+          key={photo.id}
+          photo={photo}
+          onClick={() => setPopupPhoto(photo)}
+        />
       ))}
 
       {pickedLocation && (
-        <Marker latitude={pickedLocation.lat} longitude={pickedLocation.lng} anchor="center">
+        <Marker
+          latitude={pickedLocation.lat}
+          longitude={pickedLocation.lng}
+          anchor="center"
+        >
           <MapPin />
         </Marker>
       )}
 
-      {popupPhoto && <PhotoPopup photo={popupPhoto} onClose={() => setPopupPhoto(null)} />}
+      {popupPhoto && (
+        <PhotoPopup photo={popupPhoto} onClose={() => setPopupPhoto(null)} />
+      )}
     </ReactMap>
   );
 };
