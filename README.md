@@ -1,7 +1,21 @@
-Photomapper app created by Etienne Sharkey
-.env file with google map and AWS keys required
+# Photomapper
 
-To install packages, run npm install
+A photo-sharing map app built with Next.js, Supabase, and MapLibre GL.
 
-to run the node server, run `npm start`
-to run the React app, run `npm run dev`
+## Setup
+
+Copy `.env.example` to `.env.local` and fill in your Supabase credentials:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=
+```
+
+## Running locally
+
+```bash
+npm install
+npm run dev
+```
+
+The app runs at `http://localhost:3000`. Without Supabase configured, it loads with mock photo data so the map and feed still work.

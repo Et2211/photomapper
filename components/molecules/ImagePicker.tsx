@@ -25,25 +25,39 @@ const ImagePicker = ({ preview, onImageReady, onError }: ImagePickerProps) => {
         const resized = await resizeImage(file);
         onImageReady(resized, file);
       } catch (err) {
-        onError?.(err instanceof Error ? err.message : "Failed to process image.");
+        onError?.(
+          err instanceof Error ? err.message : "Failed to process image.",
+        );
       }
     },
-    [onImageReady, onError]
+    [onImageReady, onError],
   );
 
   return (
     <div>
-      <div
+      <button
+        type="button"
         onClick={() => fileInputRef.current?.click()}
-        className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-blue-400 transition-colors"
+        aria-label="Select an image"
+        className="w-full border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-blue-400 transition-colors"
       >
         {preview ? (
-          <img src={preview} alt="Preview" className="w-32 h-32 object-cover rounded-lg mx-auto" />
+          <img
+            src={preview}
+            alt="Preview"
+            className="w-32 h-32 object-cover rounded-lg mx-auto"
+          />
         ) : (
           <p className="text-gray-400 text-sm py-4">Click to select an image</p>
         )}
-      </div>
-      <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
+      </button>
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={handleFileChange}
+      />
     </div>
   );
 };

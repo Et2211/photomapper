@@ -1,0 +1,19 @@
+{
+  "snyk.advanced.autoSelectOrganization": true,
+
+  // ESLint — enable flat config and validate TS/TSX files
+  "eslint.useFlatConfig": true,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+
+  // TypeScript — use the project's own tsc for type checking
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
+}

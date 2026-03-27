@@ -7,7 +7,10 @@ import { useAppDispatch, useAppSelector } from "@/store";
 import { useGetPhotosQuery } from "@/store/photosApi";
 import { setFocusedPhoto } from "@/store/uiSlice";
 
-const MapCanvas = dynamic(() => import("@/components/molecules/MapCanvas"), { ssr: false });
+const MapCanvas = dynamic(() => import("@/components/molecules/MapCanvas"), {
+  ssr: false,
+  loading: () => <div className="w-full h-full bg-gray-100 animate-pulse" />,
+});
 
 const MapView = () => {
   const dispatch = useAppDispatch();
