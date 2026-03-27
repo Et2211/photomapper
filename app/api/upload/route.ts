@@ -63,7 +63,7 @@ export const POST = async (request: NextRequest) => {
       lat,
       lng,
       url: publicUrl,
-    });
+    }, supabase);
 
     return NextResponse.json(photo);
   } catch (error) {
