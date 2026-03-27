@@ -4,12 +4,14 @@ interface UiState {
   focusedPhotoId: string | null;
   mobileTab: "map" | "feed";
   isUploadOpen: boolean;
+  isAuthOpen: boolean;
 }
 
 const initialState: UiState = {
   focusedPhotoId: null,
   mobileTab: "map",
   isUploadOpen: false,
+  isAuthOpen: false,
 };
 
 const uiSlice = createSlice({
@@ -25,8 +27,11 @@ const uiSlice = createSlice({
     setUploadOpen(state, action: PayloadAction<boolean>) {
       state.isUploadOpen = action.payload;
     },
+    setAuthOpen(state, action: PayloadAction<boolean>) {
+      state.isAuthOpen = action.payload;
+    },
   },
 });
 
-export const { setFocusedPhoto, setMobileTab, setUploadOpen } = uiSlice.actions;
+export const { setFocusedPhoto, setMobileTab, setUploadOpen, setAuthOpen } = uiSlice.actions;
 export default uiSlice.reducer;

@@ -2,10 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 import { insertPhoto } from "@/lib/photos";
-import { isConfigured, supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase-server";
 
 const uploadSchema = z.object({
-  username: z.string().min(1).max(50),
+  username: z.string().min(1).max(100),
   photoName: z.string().min(1).max(100),
   lat: z.number().min(-90).max(90),
   lng: z.number().min(-180).max(180),
@@ -15,6 +15,18 @@ const uploadSchema = z.object({
 
 export const POST = async (request: NextRequest) => {
   try {
+    const supabase = await createClient();
+
+    if (!supabase) {
+      return NextResponse.json({ error: "Supabase is not configured" }, { status: 503 });
+    }
+
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const body = await request.json();
     const parsed = uploadSchema.safeParse(body);
 
@@ -22,13 +34,6 @@ export const POST = async (request: NextRequest) => {
       return NextResponse.json(
         { error: "Invalid request", details: parsed.error.flatten() },
         { status: 400 }
-      );
-    }
-
-    if (!isConfigured || !supabase) {
-      return NextResponse.json(
-        { error: "Storage not configured. Please add Supabase environment variables." },
-        { status: 503 }
       );
     }
 
@@ -52,6 +57,7 @@ export const POST = async (request: NextRequest) => {
     } = supabase.storage.from("photomapper").getPublicUrl(storageKey);
 
     const photo = await insertPhoto({
+      user_id: user.id,
       username,
       photo_name: photoName,
       lat,

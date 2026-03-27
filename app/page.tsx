@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 
 import { useAppSelector } from "@/store";
 import { useGetPhotosQuery } from "@/store/photosApi";
+import AuthModal from "@/components/Auth/AuthModal";
 import BottomNav from "@/components/ui/BottomNav";
 import Header from "@/components/ui/Header";
 import PhotoFeed from "@/components/Feed/PhotoFeed";
@@ -13,7 +14,7 @@ const MapView = dynamic(() => import("@/components/Map/MapView"), { ssr: false }
 
 const Home = () => {
   const { data: photos = [] } = useGetPhotosQuery();
-  const { mobileTab, isUploadOpen } = useAppSelector((state) => state.ui);
+  const { mobileTab, isUploadOpen, isAuthOpen } = useAppSelector((state) => state.ui);
 
   return (
     <div className="flex flex-col h-screen">
@@ -45,6 +46,7 @@ const Home = () => {
       <BottomNav />
 
       {isUploadOpen && <UploadModal />}
+      {isAuthOpen && <AuthModal />}
     </div>
   );
 };
