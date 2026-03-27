@@ -42,6 +42,7 @@ const ImagePicker = ({ preview, onImageReady, onError }: ImagePickerProps) => {
         className="w-full border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-blue-400 transition-colors"
       >
         {preview ? (
+          // eslint-disable-next-line @next/next/no-img-element -- data URL preview, next/image doesn't support data URLs
           <img
             src={preview}
             alt="Preview"
