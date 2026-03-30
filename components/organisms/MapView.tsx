@@ -3,37 +3,15 @@
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
+import { photoCenter } from "@/lib/mapUtils";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { useGetPhotosQuery } from "@/store/photosApi";
 import { setFocusedPhoto } from "@/store/uiSlice";
-import type { Photo } from "@/types";
 
 const MapCanvas = dynamic(() => import("@/components/molecules/MapCanvas"), {
   ssr: false,
   loading: () => <div className="w-full h-full bg-gray-100 animate-pulse" />,
 });
-
-const photoCenter = (
-  photos: Photo[],
-): { lat: number; lng: number; zoom: number } | null => {
-  const recent = photos.slice(-5);
-  if (recent.length === 0) return null;
-
-  const lats = recent.map((point) => point.lat);
-  const lngs = recent.map((point) => point.lng);
-  const lat = (Math.min(...lats) + Math.max(...lats)) / 2;
-  const lng = (Math.min(...lngs) + Math.max(...lngs)) / 2;
-  const maxSpan = Math.max(
-    Math.max(...lats) - Math.min(...lats),
-    Math.max(...lngs) - Math.min(...lngs),
-  );
-  const zoom =
-    maxSpan === 0
-      ? 13
-      : Math.max(2, Math.min(13, Math.round(Math.log2(180 / maxSpan))));
-
-  return { lat, lng, zoom };
-};
 
 const MapView = () => {
   const dispatch = useAppDispatch();
