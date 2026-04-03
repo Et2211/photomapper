@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import ErrorMessage from "@/components/atoms/ErrorMessage";
 import { createClient } from "@/lib/supabase-browser";
 
 const GoogleSignInButton = () => {
@@ -46,7 +47,7 @@ const GoogleSignInButton = () => {
         </svg>
         Continue with Google
       </button>
-      {error && <p className="text-red-500 text-sm">{error}</p>}
+      <ErrorMessage message={error} />
     </div>
   );
 };

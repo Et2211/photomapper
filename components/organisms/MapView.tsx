@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
+import Skeleton from "@/components/atoms/Skeleton";
 import { photoCenter } from "@/lib/mapUtils";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { useGetPhotosQuery } from "@/store/photosApi";
@@ -10,7 +11,7 @@ import { setFocusedPhoto } from "@/store/uiSlice";
 
 const MapCanvas = dynamic(() => import("@/components/molecules/MapCanvas"), {
   ssr: false,
-  loading: () => <div className="w-full h-full bg-gray-100 animate-pulse" />,
+  loading: () => <Skeleton className="w-full h-full" />,
 });
 
 const MapView = () => {

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Popup } from "react-map-gl/maplibre";
 
+import Skeleton from "@/components/atoms/Skeleton";
 import type { Photo } from "@/types";
 
 interface PhotoPopupProps {
@@ -16,7 +17,7 @@ const PhotoPopup = ({ photo, onClose }: PhotoPopupProps) => {
   return (
     <Popup latitude={photo.lat} longitude={photo.lng} onClose={onClose} anchor="bottom" closeButton>
       <div className="p-1 min-w-[140px]">
-        {!imgLoaded && <div className="w-full h-32 bg-gray-200 animate-pulse rounded mb-2" />}
+        {!imgLoaded && <Skeleton className="w-full h-32 mb-2" />}
         <img
           src={photo.url}
           alt={photo.photo_name}
