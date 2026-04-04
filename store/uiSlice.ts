@@ -1,10 +1,13 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
+
+type ProfileView = "list" | "grid" | "map";
 
 interface UiState {
   focusedPhotoId: string | null;
   mobileTab: "map" | "feed";
   isUploadOpen: boolean;
   isAuthOpen: boolean;
+  profileView: ProfileView;
 }
 
 const initialState: UiState = {
@@ -12,6 +15,7 @@ const initialState: UiState = {
   mobileTab: "map",
   isUploadOpen: false,
   isAuthOpen: false,
+  profileView: "list",
 };
 
 const uiSlice = createSlice({
@@ -30,8 +34,12 @@ const uiSlice = createSlice({
     setAuthOpen(state, action: PayloadAction<boolean>) {
       state.isAuthOpen = action.payload;
     },
+    setProfileView(state, action: PayloadAction<ProfileView>) {
+      state.profileView = action.payload;
+    },
   },
 });
 
-export const { setFocusedPhoto, setMobileTab, setUploadOpen, setAuthOpen } = uiSlice.actions;
+export const { setFocusedPhoto, setMobileTab, setUploadOpen, setAuthOpen, setProfileView } =
+  uiSlice.actions;
 export default uiSlice.reducer;

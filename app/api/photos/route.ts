@@ -1,10 +1,11 @@
-import { NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
-import { getPhotos } from "@/lib/photos";
+import { getPhotos, getPhotosByUsername } from "@/lib/photos";
 
-export const GET = async () => {
+export const GET = async (request: NextRequest) => {
   try {
-    const photos = await getPhotos();
+    const username = request.nextUrl.searchParams.get("username");
+    const photos = username ? await getPhotosByUsername(username) : await getPhotos();
     return NextResponse.json(photos);
   } catch (error) {
     return NextResponse.json(

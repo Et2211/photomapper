@@ -1,6 +1,7 @@
+import type { Photo } from "@/types";
+
 import { isConfigured, supabase } from "./supabase";
 
-import type { Photo } from "@/types";
 
 const MOCK_PHOTOS: Photo[] = [
   {
@@ -62,6 +63,24 @@ export const getPhotos = async (): Promise<Photo[]> => {
   return data ?? [];
 };
 
+export const getPhotosByUsername = async (username: string): Promise<Photo[]> => {
+  if (!isConfigured || !supabase) {
+    return MOCK_PHOTOS.filter((photo) => photo.username === username);
+  }
+
+  const { data, error } = await supabase
+    .from("photos")
+    .select("*")
+    .eq("username", username)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data ?? [];
+};
+
 export const insertPhoto = async (
   photo: Omit<Photo, "id" | "created_at">
 ): Promise<Photo> => {
@@ -69,9 +88,24 @@ export const insertPhoto = async (
     throw new Error("Supabase is not configured");
   }
 
+  const { data, error } = await supabase.from("photos").insert([photo]).select().single();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+};
+
+export const updatePhotoName = async (id: string, photoName: string): Promise<Photo> => {
+  if (!isConfigured || !supabase) {
+    throw new Error("Supabase is not configured");
+  }
+
   const { data, error } = await supabase
     .from("photos")
-    .insert([photo])
+    .update({ photo_name: photoName })
+    .eq("id", id)
     .select()
     .single();
 
@@ -80,4 +114,37 @@ export const insertPhoto = async (
   }
 
   return data;
+};
+
+export const deletePhotoById = async (id: string): Promise<void> => {
+  if (!isConfigured || !supabase) {
+    throw new Error("Supabase is not configured");
+  }
+
+  // Fetch the photo first to get the storage URL
+  const { data: photo, error: fetchError } = await supabase
+    .from("photos")
+    .select("url")
+    .eq("id", id)
+    .single();
+
+  if (fetchError) {
+    throw new Error(fetchError.message);
+  }
+
+  // Extract the storage path from the URL and delete from storage
+  if (photo?.url) {
+    const url = new URL(photo.url);
+    const pathParts = url.pathname.split("/object/public/photomapper/");
+
+    if (pathParts.length === 2) {
+      await supabase.storage.from("photomapper").remove([pathParts[1]]);
+    }
+  }
+
+  const { error } = await supabase.from("photos").delete().eq("id", id);
+
+  if (error) {
+    throw new Error(error.message);
+  }
 };
