@@ -33,6 +33,13 @@ CREATE POLICY "Owner delete"
   TO authenticated
   USING (auth.uid() = user_id);
 
--- 6. Create the storage bucket (run in Supabase dashboard or via API)
+-- 6. Users can update their own photos
+CREATE POLICY "Owner update"
+  ON photos FOR UPDATE
+  TO authenticated
+  USING (auth.uid() = user_id)
+  WITH CHECK (auth.uid() = user_id);
+
+-- 7. Create the storage bucket (run in Supabase dashboard or via API)
 -- Bucket name: photomapper
 -- Public: true

@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import Button from "@/components/atoms/Button";
 import { createClient } from "@/lib/supabase-browser";
 import { useAppDispatch, useAppSelector } from "@/store";
@@ -30,7 +32,12 @@ const Header = () => {
       <span className="text-lg font-bold tracking-tight">Photomapper</span>
       <div className="flex items-center gap-2">
         {user && (
-          <span className="text-xs text-gray-400 hidden sm:block truncate max-w-[160px]">{user.email}</span>
+          <>
+            <span className="text-xs text-gray-400 hidden sm:block truncate max-w-[160px]">{user.email}</span>
+            <Link href="/profile" className="hidden sm:block text-xs text-gray-300 hover:text-white transition-colors">
+              Profile
+            </Link>
+          </>
         )}
         <Button onClick={() => refetch()}>Refresh</Button>
         {user ? (
