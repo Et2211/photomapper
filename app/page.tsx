@@ -2,13 +2,13 @@
 
 import dynamic from "next/dynamic";
 
-import { useAppSelector } from "@/store";
-import { useGetPhotosQuery } from "@/store/photosApi";
 import AuthModal from "@/components/Auth/AuthModal";
+import PhotoFeed from "@/components/Feed/PhotoFeed";
 import BottomNav from "@/components/ui/BottomNav";
 import Header from "@/components/ui/Header";
-import PhotoFeed from "@/components/Feed/PhotoFeed";
 import UploadModal from "@/components/Upload/UploadModal";
+import { useAppSelector } from "@/store";
+import { useGetPhotosQuery } from "@/store/photosApi";
 
 const MapView = dynamic(() => import("@/components/Map/MapView"), { ssr: false });
 
@@ -17,7 +17,7 @@ const Home = () => {
   const { mobileTab, isUploadOpen, isAuthOpen } = useAppSelector((state) => state.ui);
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-dvh">
       <Header />
 
       {/* Desktop: side-by-side feed + map */}
