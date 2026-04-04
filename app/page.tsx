@@ -12,7 +12,7 @@ const Home = () => {
   const { mobileTab, isUploadOpen, isAuthOpen } = useAppSelector((state) => state.ui);
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-dvh">
       <Header />
 
       {/* Desktop: side-by-side feed + map */}

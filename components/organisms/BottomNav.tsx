@@ -10,7 +10,8 @@ const BottomNav = () => {
   const mobileTab = useAppSelector((state) => state.ui.mobileTab);
 
   return (
-    <nav className="h-16 bg-gray-900 text-white flex md:hidden shrink-0 border-t border-gray-700">
+    <nav className="bg-gray-900 text-white md:hidden shrink-0 border-t border-gray-700 pb-[env(safe-area-inset-bottom)]">
+      <div className="h-16 flex">
       <NavTab label="Map" active={mobileTab === "map"} onClick={() => dispatch(setMobileTab("map"))}>
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -26,6 +27,7 @@ const BottomNav = () => {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
         </svg>
       </NavTab>
+      </div>
     </nav>
   );
 };
