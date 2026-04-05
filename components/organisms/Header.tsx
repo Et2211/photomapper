@@ -13,6 +13,7 @@ const Header = () => {
   const dispatch = useAppDispatch();
   const { refetch } = useGetPhotosQuery();
   const user = useAppSelector((state) => state.auth.user);
+  const displayName = useAppSelector((state) => state.auth.displayName);
   const supabase = createClient();
 
   const handleAddPhoto = () => {
@@ -33,7 +34,7 @@ const Header = () => {
       <div className="flex items-center gap-2">
         {user && (
           <>
-            <span className="text-xs text-gray-400 hidden sm:block truncate max-w-[160px]">{user.email}</span>
+            <span className="text-xs text-gray-400 hidden sm:block truncate max-w-[160px]">{displayName ?? user.email}</span>
             <Link href="/profile" className="hidden sm:block text-xs text-gray-300 hover:text-white transition-colors">
               Profile
             </Link>

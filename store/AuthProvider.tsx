@@ -1,11 +1,15 @@
 "use client";
 
+import type { User } from "@supabase/supabase-js";
 import { useEffect } from "react";
 
+
+import { upsertProfile } from "@/lib/profile";
 import { createClient, isConfigured } from "@/lib/supabase-browser";
 
+import { setProfile, setUser } from "./authSlice";
+
 import { useAppDispatch } from "./index";
-import { setUser } from "./authSlice";
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useAppDispatch();
@@ -18,15 +22,23 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const supabase = createClient();
 
+    const handleUser = async (user: User | null) => {
+      dispatch(setUser(user));
+      if (user) {
+        const profile = await upsertProfile(supabase, user.id, user.user_metadata as Record<string, string>);
+        dispatch(setProfile({ displayName: profile?.display_name ?? null, avatarUrl: profile?.avatar_url ?? null }));
+      }
+    };
+
     supabase.auth
       .getUser()
-      .then(({ data }) => dispatch(setUser(data.user ?? null)))
+      .then(({ data }) => handleUser(data.user ?? null))
       .catch(() => dispatch(setUser(null)));
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      dispatch(setUser(session?.user ?? null));
+      handleUser(session?.user ?? null);
     });
 
     return () => subscription.unsubscribe();

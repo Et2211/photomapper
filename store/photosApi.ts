@@ -1,11 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import type { Photo, UploadPayload } from "@/types";
+import type { Photo, Profile, UploadPayload } from "@/types";
 
 export const photosApi = createApi({
   reducerPath: "photosApi",
   baseQuery: fetchBaseQuery({ baseUrl: "/api" }),
-  tagTypes: ["Photos", "UserPhotos"],
+  tagTypes: ["Photos", "UserPhotos", "Profile"],
   endpoints: (builder) => ({
     getPhotos: builder.query<Photo[], void>({
       query: () => "/photos",
@@ -44,6 +44,18 @@ export const photosApi = createApi({
         { type: "UserPhotos", id: username },
       ],
     }),
+    getProfile: builder.query<Profile | null, void>({
+      query: () => "/profile",
+      providesTags: ["Profile"],
+    }),
+    updateDisplayName: builder.mutation<Profile, { displayName: string }>({
+      query: (body) => ({
+        url: "/profile",
+        method: "PATCH",
+        body,
+      }),
+      invalidatesTags: ["Profile"],
+    }),
   }),
 });
 
@@ -53,4 +65,6 @@ export const {
   useUploadPhotoMutation,
   useUpdatePhotoMutation,
   useDeletePhotoMutation,
+  useGetProfileQuery,
+  useUpdateDisplayNameMutation,
 } = photosApi;

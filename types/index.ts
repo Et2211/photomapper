@@ -9,6 +9,13 @@ export interface Photo {
   created_at: string;
 }
 
+export interface Profile {
+  id: string;
+  display_name: string | null;
+  avatar_url: string | null;
+  updated_at: string;
+}
+
 export interface UploadPayload {
   username: string;
   photoName: string;
