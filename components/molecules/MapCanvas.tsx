@@ -4,10 +4,10 @@ import type { MapLayerMouseEvent } from "maplibre-gl";
 import { setWorkerUrl } from "maplibre-gl";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "maplibre-gl/dist/maplibre-gl.css";
-import ReactMap, { Marker, type ViewStateChangeEvent } from "react-map-gl/maplibre";
+import ReactMap, { type MapRef, Marker, type ViewStateChangeEvent } from "react-map-gl/maplibre";
 
 import MapPin from "@/components/atoms/MapPin";
-import { averageCoordinate } from "@/lib/geo";
+import { averageCoordinate, boundsAround } from "@/lib/geo";
 import type { Photo } from "@/types";
 
 
@@ -21,6 +21,28 @@ setWorkerUrl("/maplibre-gl-worker.mjs");
 
 const MAP_STYLE = "https://tiles.openfreemap.org/styles/liberty";
 const DEFAULT_VIEW = { latitude: 34.0522, longitude: -118.2437, zoom: 10 };
+// A single photo, or several in one spot, gives no spread to fit; open close
+// enough to recognise the place without diving down to street level.
+const SINGLE_LOCATION_ZOOM = 14;
+
+/**
+ * Zoom at which every photo is visible around `centre`, using MapLibre's own
+ * camera maths so the live container size and projection are accounted for.
+ */
+const zoomForPhotos = (map: MapRef, photos: Photo[], centre: { lat: number; lng: number }) => {
+  const bounds = boundsAround(centre, photos);
+  if (!bounds) {
+    return SINGLE_LOCATION_ZOOM;
+  }
+
+  const container = map.getContainer();
+  const padding = Math.max(
+    16,
+    Math.min(64, Math.floor(Math.min(container.clientWidth, container.clientHeight) / 8))
+  );
+
+  return map.cameraForBounds(bounds, { padding })?.zoom ?? DEFAULT_VIEW.zoom;
+};
 
 interface FocusTarget {
   lat: number;
@@ -48,6 +70,10 @@ const MapCanvas = ({
 }: MapCanvasProps) => {
   const [viewState, setViewState] = useState(DEFAULT_VIEW);
   const [popupPhoto, setPopupPhoto] = useState<Photo | null>(null);
+  const mapRef = useRef<MapRef>(null);
+  // The map and the photos become ready in either order, so the opening view
+  // waits for both.
+  const [isMapReady, setIsMapReady] = useState(false);
   // Photos load after the first render, so the opening view is settled once and
   // then left alone: a later fetch must not yank the map out from under someone
   // who has already panned it or opened a photo.
@@ -56,18 +82,21 @@ const MapCanvas = ({
   const photosCentre = useMemo(() => averageCoordinate(photos), [photos]);
 
   useEffect(() => {
-    if (hasSettledInitialViewRef.current || !photosCentre) {
+    const map = mapRef.current;
+    if (hasSettledInitialViewRef.current || !photosCentre || !isMapReady || !map) {
       return;
     }
 
     hasSettledInitialViewRef.current = true;
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+    const zoom = zoomForPhotos(map, photos, photosCentre);
+     
     setViewState((prev) => ({
       ...prev,
       latitude: photosCentre.lat,
       longitude: photosCentre.lng,
+      zoom,
     }));
-  }, [photosCentre]);
+  }, [photos, photosCentre, isMapReady]);
 
   useEffect(() => {
     if (!focusTarget) {
@@ -107,8 +136,10 @@ const MapCanvas = ({
 
   return (
     <ReactMap
+      ref={mapRef}
       {...viewState}
       onMove={handleMove}
+      onLoad={() => setIsMapReady(true)}
       mapStyle={MAP_STYLE}
       onClick={handleClick}
       cursor={pickingLocation ? "crosshair" : "auto"}
