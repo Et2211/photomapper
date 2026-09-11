@@ -35,5 +35,3 @@ build-storybook.log*
 .env.*
 .env*
 config.js
-
-next-env.d.ts
