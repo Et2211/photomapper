@@ -2,11 +2,12 @@
 
 import type { MapLayerMouseEvent } from "maplibre-gl";
 import { setWorkerUrl } from "maplibre-gl";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "maplibre-gl/dist/maplibre-gl.css";
-import ReactMap, { Marker } from "react-map-gl/maplibre";
+import ReactMap, { Marker, type ViewStateChangeEvent } from "react-map-gl/maplibre";
 
 import MapPin from "@/components/atoms/MapPin";
+import { averageCoordinate } from "@/lib/geo";
 import type { Photo } from "@/types";
 
 
@@ -47,11 +48,33 @@ const MapCanvas = ({
 }: MapCanvasProps) => {
   const [viewState, setViewState] = useState(DEFAULT_VIEW);
   const [popupPhoto, setPopupPhoto] = useState<Photo | null>(null);
+  // Photos load after the first render, so the opening view is settled once and
+  // then left alone: a later fetch must not yank the map out from under someone
+  // who has already panned it or opened a photo.
+  const hasSettledInitialViewRef = useRef(false);
+
+  const photosCentre = useMemo(() => averageCoordinate(photos), [photos]);
+
+  useEffect(() => {
+    if (hasSettledInitialViewRef.current || !photosCentre) {
+      return;
+    }
+
+    hasSettledInitialViewRef.current = true;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setViewState((prev) => ({
+      ...prev,
+      latitude: photosCentre.lat,
+      longitude: photosCentre.lng,
+    }));
+  }, [photosCentre]);
 
   useEffect(() => {
     if (!focusTarget) {
       return;
     }
+
+    hasSettledInitialViewRef.current = true;
 
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setViewState((prev) => ({
@@ -65,6 +88,14 @@ const MapCanvas = ({
     onFocusConsumed?.();
   }, [focusTarget, onFocusConsumed]);
 
+  const handleMove = useCallback((e: ViewStateChangeEvent) => {
+    if (e.originalEvent) {
+      hasSettledInitialViewRef.current = true;
+    }
+
+    setViewState(e.viewState);
+  }, []);
+
   const handleClick = useCallback(
     (e: MapLayerMouseEvent) => {
       if (pickingLocation && onLocationPick) {
@@ -77,7 +108,7 @@ const MapCanvas = ({
   return (
     <ReactMap
       {...viewState}
-      onMove={(e) => setViewState(e.viewState)}
+      onMove={handleMove}
       mapStyle={MAP_STYLE}
       onClick={handleClick}
       cursor={pickingLocation ? "crosshair" : "auto"}
