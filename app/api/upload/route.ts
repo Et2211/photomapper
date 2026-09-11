@@ -4,8 +4,9 @@ import { z } from "zod";
 import { insertPhoto } from "@/lib/photos";
 import { createClient } from "@/lib/supabase-server";
 
+// The photo is always credited to the signed-in user, so a username sent by the
+// client is ignored rather than trusted.
 const uploadSchema = z.object({
-  username: z.string().min(1).max(100),
   photoName: z.string().min(1).max(100),
   lat: z.number().min(-90).max(90),
   lng: z.number().min(-180).max(180),
@@ -37,7 +38,9 @@ export const POST = async (request: NextRequest) => {
       );
     }
 
-    const { username, photoName, lat, lng, imageData, fileName } = parsed.data;
+    const { photoName, lat, lng, imageData, fileName } = parsed.data;
+    // Matches what the upload form shows the user they are posting as.
+    const username = user.email ?? user.id;
 
     const base64Data = imageData.replace(/^data:image\/\w+;base64,/, "");
     const buffer = Buffer.from(base64Data, "base64");
