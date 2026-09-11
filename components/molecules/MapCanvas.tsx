@@ -1,6 +1,7 @@
 "use client";
 
 import type { MapLayerMouseEvent } from "maplibre-gl";
+import { setWorkerUrl } from "maplibre-gl";
 import { useCallback, useEffect, useState } from "react";
 import "maplibre-gl/dist/maplibre-gl.css";
 import ReactMap, { Marker } from "react-map-gl/maplibre";
@@ -11,6 +12,11 @@ import type { Photo } from "@/types";
 
 import PhotoMarker from "./PhotoMarker";
 import PhotoPopup from "./PhotoPopup";
+
+// MapLibre v6 no longer auto-resolves its worker script under a bundler; the
+// worker file is served as a static asset (see scripts/copy-maplibre-worker.js)
+// so Turbopack never touches it. Must run before any Map instance is created.
+setWorkerUrl("/maplibre-gl-worker.mjs");
 
 const MAP_STYLE = "https://tiles.openfreemap.org/styles/liberty";
 const DEFAULT_VIEW = { latitude: 34.0522, longitude: -118.2437, zoom: 10 };

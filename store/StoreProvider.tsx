@@ -3,6 +3,7 @@
 import { Provider } from "react-redux";
 
 import AuthProvider from "./AuthProvider";
+
 import { store } from "./index";
 
 const StoreProvider = ({ children }: { children: React.ReactNode }) => (
